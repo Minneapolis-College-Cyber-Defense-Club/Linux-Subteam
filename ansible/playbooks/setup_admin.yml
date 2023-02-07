@@ -1,6 +1,8 @@
 ---
 - name: setup "{{ test_admin }}" on splunk host
   hosts: splunk
+  vars_files:
+    - "vault/main.yml"
   gather_facts: false
   roles:
     - setup_admin
