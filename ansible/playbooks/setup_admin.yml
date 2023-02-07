@@ -1,0 +1,5 @@
+---
+- name: setup "{{ test_admin }}" on splunk host
+  hosts: splunk
+  roles:
+    - setup_admin
