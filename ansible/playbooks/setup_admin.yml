@@ -1,5 +1,6 @@
 ---
 - name: setup "{{ test_admin }}" on splunk host
   hosts: splunk
+  gather_facts: false
   roles:
     - setup_admin

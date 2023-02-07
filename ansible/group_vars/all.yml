@@ -1,3 +1,6 @@
 team_admin: team8admin
 teamadmin_password: testtest
 safe_dns_server: 8.8.8.8
+ssh_type: rsa
+ssh_key_length: 4096
+ssh_path: .ssh/id_rsa
