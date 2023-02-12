@@ -2,6 +2,7 @@
 # tasks file for ssh_setup
 - name: make backup
   ansible.builtin.command: /bin/cp /etc/ssh/sshd_config /etc/ssh/sshd_config."{{ ansible_date_time.iso8601_micro }}"
+
 - name: Configure sshd
   lineinfile:
     path: "/etc/ssh/sshd_config"
@@ -30,6 +31,7 @@
     - { key: "DenyUsers", value: "{{ ssh_opt_DenyUsers }}" }
   notify:
     - restart sshd
+
 - name: add key to root auth
   ansible.posix.authorized_key:
     user: root

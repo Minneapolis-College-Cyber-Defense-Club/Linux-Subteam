@@ -1,12 +1,12 @@
 ---
-# tasks file for fix_sudo
-- name: make backup
+- name: adjust sudoers
   ansible.builtin.command: 
     - /bin/cp /etc/sudoers /etc/sudoers."{{ ansible_date_time.iso8601_micro }}"
     - /bin/rm -f /etc/sudoers
     - /bin/touch /etc/sudoers
     - '/bin/chown root: /etc/sudoers'
     - /bin/chmod 600 /etc/sudoers
+    
 - name: Configure "{{ team_admin }}" sudoers
   lineinfile:
     path: "/etc/sudoers.d/{{ team_admin }}"

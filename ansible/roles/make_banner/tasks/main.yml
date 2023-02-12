@@ -1,5 +1,5 @@
 ---
-- name: banner - remove existing
+- name: banner - new banner file
   ansible.builtin.file:
     path: "/etc/{{ item }}"
     state: absent
@@ -8,6 +8,7 @@
     - issue
     - issue.net
     - motd
+
 - name: create new banner
   ansible.builtin.copy:
     src: ../files/banner
@@ -15,6 +16,7 @@
     owner: root
     group: root
     mode: '0644'
+    
 - name: symlink other files to /etc/banner
   ansbile.builtin.file:
     src: /etc/banner
