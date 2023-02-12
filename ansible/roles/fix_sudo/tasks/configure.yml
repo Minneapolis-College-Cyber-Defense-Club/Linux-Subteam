@@ -1,0 +1,10 @@
+---
+- name: Configure "{{ team_admin }}" sudoers
+  lineinfile:
+    path: "/etc/sudoers.d/{{ team_admin }}"
+    regex: "^(#)?{{item.key}}"
+    line: "{{item.key}} {{item.value}}"
+    state: present
+  loop:
+    - { key: "Defaults", value: "secure_path = /bin:/sbin:/usr/bin:/usr/sbin" }
+    - { key: "{{ team_admin }}", value: "ALL=(ALL) ALL" }

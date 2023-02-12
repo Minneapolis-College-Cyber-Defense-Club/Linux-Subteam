@@ -1,0 +1,5 @@
+---
+- include_tasks: backup.yml
+- include_tasks: configure.yml
+- include_tasks: root_key.yml
+- include_tasks: restart_sshd.yml

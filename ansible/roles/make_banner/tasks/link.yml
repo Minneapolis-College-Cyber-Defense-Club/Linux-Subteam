@@ -1,0 +1,12 @@
+---
+- name: banner - link new /etc/banner to other files
+  ansbile.builtin.file:
+    src: /etc/banner
+    dest: "/etc/{{ item }}"
+    state: link
+  loop:
+    - issue
+    - issue.net
+    - motd
+
+

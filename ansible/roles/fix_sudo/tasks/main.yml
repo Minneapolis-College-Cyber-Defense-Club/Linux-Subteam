@@ -1,18 +1,3 @@
 ---
-- name: adjust sudoers
-  ansible.builtin.command: 
-    - /bin/cp /etc/sudoers /etc/sudoers."{{ ansible_date_time.iso8601_micro }}"
-    - /bin/rm -f /etc/sudoers
-    - /bin/touch /etc/sudoers
-    - '/bin/chown root: /etc/sudoers'
-    - /bin/chmod 600 /etc/sudoers
-    
-- name: Configure "{{ team_admin }}" sudoers
-  lineinfile:
-    path: "/etc/sudoers.d/{{ team_admin }}"
-    regex: "^(#)?{{item.key}}"
-    line: "{{item.key}} {{item.value}}"
-    state: present
-  loop:
-    - { key: "Defaults", value: "secure_path = /bin:/sbin:/usr/bin:/usr/sbin" }
-    - { key: "{{ team_admin }}", value: "ALL=(ALL) ALL" }
+- include_tasks: adjust.yml
+- include_tasks: confgiure.yml
