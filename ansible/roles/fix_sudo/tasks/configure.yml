@@ -1,4 +1,11 @@
 ---
+- name: create the new file
+  ansible.builtin.file:
+    path: "/etc/sudoers.d/{{ team_admin }}"
+    owner: root
+    group: root
+    mode: 0600
+    state: touch
 - name: Configure "{{ team_admin }}" sudoers
   lineinfile:
     path: "/etc/sudoers.d/{{ team_admin }}"
