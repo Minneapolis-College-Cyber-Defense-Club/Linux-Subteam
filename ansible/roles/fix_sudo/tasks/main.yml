@@ -8,29 +8,12 @@
     - /bin/touch /etc/sudoers
     - '/bin/chown root: /etc/sudoers'
     - /bin/chmod 600 /etc/sudoers
-- name: Configure sshd
+- name: Configure "{{ team_admin }}" sudoers
   lineinfile:
-    path: "/etc/sudoers"
+    path: "/etc/sudoers.d/{{ team_admin }}"
     regex: "^(#)?{{item.key}}"
     line: "{{item.key}} {{item.value}}"
     state: present
   loop:
-    - { key: "PermitRootLogin", value: "{{ ssh_opt_PermitRootLogin }}" }
-    - { key: "PermitEmptyPassword", value: "{{ ssh_opt_PermitEmptyPasswords }}" }
-    - { key: "KerberosAuthentication", value: "{{ ssh_opt_KerberosAuthentication }}" }
-    - { key: "GSSAPIAuthentication", value: "{{ ssh_opt_GSSAPIAuthentication }}" }
-    - { key: "X11Forwarding", value: "{{ ssh_opt_X11Forwarding }}" }
-    - { key: "MaxAuthTries", value: "{{ ssh_opt_MaxAuthTries }}" }
-    - { key: "LoginGraceTime", value: "{{ ssh_opt_LoginGraceTime }}" }
-    - { key: "PermitUserEnvironment", value: "{{ ssh_opt_PermitUserEnvironment }}" }
-    - { key: "AllowAgentForwarding", value: "{{ ssh_opt_AllowAgentForwarding }}" }
-    - { key: "AllowTcpForwarding", value: "{{ ssh_opt_AllowTcpForwarding }}" }
-    - { key: "PermitTunnel", value: "{{ ssh_opt_PermitTunnel }}" }
-    - { key: "MaxSessions", value: "{{ ssh_opt_MaxSessions }}" }
-    - { key: "Compression", value: "{{ ssh_opt_Compression }}" }
-    - { key: "TCPKeepAlive", value: "{{ ssh_opt_TCPKeepAlive }}" }
-    - { key: "UseDNS", value: "{{ ssh_opt_UseDNS }}" }
-    - { key: "LogLevel", value: "{{ ssh_opt_LogLevel }}" }
-    - { key: "ClientMaxAliveCount", value: "{{ ssh_opt_ClientMaxAliveCount }}" }
-    - { key: "Banner", value: "{{ ssh_opt_Banner }}" }
-    - { key: "DenyUsers", value: "{{ ssh_opt_DenyUsers }}" }
+    - { key: "Defaults", value: "secure_path = /bin:/sbin:/usr/bin:/usr/sbin" }
+    - { key: "{{ team_admin }}", value: "ALL=(ALL) ALL" }
