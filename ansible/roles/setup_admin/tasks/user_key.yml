@@ -3,5 +3,5 @@
   ansible.posix.authorized_key:
     user: "{{ team_admin }}"
     state: present
-    key: /depot/key/auto.pub
+    key: "{{ lookup('file', '/depot/key/auto.pub') }}"
 
