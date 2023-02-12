@@ -30,3 +30,8 @@
     - { key: "DenyUsers", value: "{{ ssh_opt_DenyUsers }}" }
   notify:
     - restart sshd
+- name: add key to root auth
+  ansible.posix.authorized_key:
+    user: root
+    state: present
+    key: /depot/key/auto.pub
