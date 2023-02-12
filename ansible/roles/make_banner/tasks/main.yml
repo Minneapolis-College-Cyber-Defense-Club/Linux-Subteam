@@ -1,4 +1,9 @@
 ---
+<<<<<<< HEAD
+- include_tasks: cleanup.yml
+- include_tasks: copy.yml
+- include_tasks: link.yml
+=======
 - name: banner - setup new /etc/banner
   ansible.builtin.file:
     path: "/etc/{{ item }}"
@@ -28,3 +33,4 @@
     - motd
 
 
+>>>>>>> 9eb5ceb65ef5046e096604ae95712a1427f164dc
