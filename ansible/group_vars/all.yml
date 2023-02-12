@@ -25,23 +25,3 @@ ssh_opt_LogLevel: "VERBOSE"
 ssh_opt_ClientMaxAliveCount: "2"
 ssh_opt_Banner: "/etc/banner"
 ssh_opt_DenyUsers: "!root,!hal9000,*"
-
-
-PermitRootLogin no
-PermitEmptyPasswords no
-KerberosAuthentication no
-GSSAPIAuthentication no
-X11Forwarding no
-MaxAuthTries 3
-LoginGraceTime 20
-PermitUserEnvironment no
-AllowAgentForwarding no
-AllowTcpForwarding no
-PermitTunnel no
-MaxSessions 2
-Compression no
-TCPKeepAlive no
-UseDNS no
-LogLevel VERBOSE
-ClientMaxAliveCount 2
-Banner /etc/mctcbanne
