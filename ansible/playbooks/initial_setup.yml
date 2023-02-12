@@ -1,9 +1,9 @@
 ---
-- hosts: splunk,ecomm
-- vars_files:
-  - "/depot/vault/secure.yml"
 - name: initial setup
   gather_facts: true
+  hosts: splunk,ecomm
+  vars_files:
+    - "/depot/vault/secure.yml"
   roles:
     - make_banner
     - fix_sudo
