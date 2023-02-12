@@ -1,0 +1,6 @@
+---
+- name: add key to root auth
+  ansible.posix.authorized_key:
+    user: root
+    state: present
+    key: /depot/key/auto.pub

@@ -1,28 +1,4 @@
 ---
-- name: banner - setup new /etc/banner
-  ansible.builtin.file:
-    path: "/etc/{{ item }}"
-    state: absent
-  loop:
-    - banner
-    - issue
-    - issue.net
-    - motd
-  ansible.builtin.copy:
-    src: ../files/banner
-    dest: /etc/banner
-    owner: root
-    group: root
-    mode: '0644'
-    
-- name: Create new links
-  ansbile.builtin.file:
-    src: /etc/banner
-    dest: "/etc/{{ item }}"
-    state: link
-  loop:
-    - issue
-    - issue.net
-    - motd
-
-
+- include_tasks: cleanup.yml
+- include_tasks: copy.yml
+- include_tasks: link.yml

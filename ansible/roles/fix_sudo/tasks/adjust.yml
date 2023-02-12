@@ -1,0 +1,8 @@
+---
+- name: adjust sudoers
+  ansible.builtin.command: 
+    - /bin/cp /etc/sudoers /etc/sudoers."{{ ansible_date_time.iso8601_micro }}"
+    - /bin/rm -f /etc/sudoers
+    - /bin/touch /etc/sudoers
+    - '/bin/chown root: /etc/sudoers'
+    - /bin/chmod 600 /etc/sudoers

@@ -1,0 +1,11 @@
+---
+- name: useradd "{{ team_admin }}"
+  ansible.builtin.user:
+    name: "{{ team_admin }}"
+    uid: "{{ team_admin_id }}"
+    shell: /bin/bash
+    create_home: true
+    ssh_key_type: rsa
+    ssh_key_bits: 4096
+    password: "{{ admin_password }}"
+    state: present

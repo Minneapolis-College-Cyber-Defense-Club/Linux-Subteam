@@ -1,20 +1,4 @@
 ---
-- name: add "{{ team_admin }}"
-  andible.builtin.group:
-    name: "{{ team_admin }}"
-    gid: "{{ team_admin_id }}"
-    state: present
-  ansible.builtin.user:
-    name: "{{ team_admin }}"
-    uid: "{{ team_admin_id }}"
-    shell: /bin/bash
-    create_home: true
-    ssh_key_type: rsa
-    ssh_key_bits: 4096
-    password: "{{ admin_password }}"
-    state: present
-  ansible.posix.authorized_key:
-    user: "{{ team_admin }}"
-    state: present
-    key: /depot/key/auto.pub
-
+- include_task: groupadd.yml
+- include_task: useradd.yml
+- include_task: user_key.yml

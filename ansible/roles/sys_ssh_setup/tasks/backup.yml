@@ -1,0 +1,4 @@
+---
+# tasks file for ssh_setup
+- name: make backup
+  ansible.builtin.command: /bin/cp /etc/ssh/sshd_config /etc/ssh/sshd_config."{{ ansible_date_time.iso8601_micro }}"
