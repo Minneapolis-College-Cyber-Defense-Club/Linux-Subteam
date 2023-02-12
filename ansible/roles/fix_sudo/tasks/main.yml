@@ -1,9 +1,8 @@
 ---
 # tasks file for fix_sudo
 - name: make backup
-  ansible.builtin.command: /bin/cp /etc/sudoers /etc/sudoers."{{ ansible_date_time.iso8601_micro }}"
-- name: blank /etc/sudoers
   ansible.builtin.command: 
+    - /bin/cp /etc/sudoers /etc/sudoers."{{ ansible_date_time.iso8601_micro }}"
     - /bin/rm -f /etc/sudoers
     - /bin/touch /etc/sudoers
     - '/bin/chown root: /etc/sudoers'
