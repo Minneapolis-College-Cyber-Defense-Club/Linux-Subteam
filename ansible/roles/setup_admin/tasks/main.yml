@@ -1,4 +1,13 @@
 ---
+- name: groupadd
+  ansible.builtin.import_tasks:
+    file: groupadd.yml
+- name: useradd
+  ansible.builtin.import_tasks:
+    file: useradd.yml
+- name: adjust authorized_keys
+  ansible.builtin.import_tasks:
+    file: user_key.yml
 - include_tasks: groupadd.yml
 - include_tasks: useradd.yml
 - include_tasks: user_key.yml

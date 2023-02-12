@@ -1,3 +1,7 @@
 ---
-- include_tasks: adjust.yml
-- include_tasks: confgiure.yml
+- name: adjust /etc/sudoers file
+  ansible.builtin.import_tasks:
+    file: adjust.yml
+- name: configure sudoers
+  ansible.builtin.import_tasks:
+    file: configure.yml
