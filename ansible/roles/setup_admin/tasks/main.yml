@@ -1,4 +1,4 @@
 ---
-- include_task: groupadd.yml
-- include_task: useradd.yml
-- include_task: user_key.yml
+- include_tasks: groupadd.yml
+- include_tasks: useradd.yml
+- include_tasks: user_key.yml
