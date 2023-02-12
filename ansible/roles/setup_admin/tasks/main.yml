@@ -1,11 +1,20 @@
 ---
 - name: add "{{ team_admin }}"
+  andible.builtin.group:
+    name: "{{ team_admin }}"
+    gid: "{{ team_admin_id }}"
+    state: present
   ansible.builtin.user:
     name: "{{ team_admin }}"
-    uid: 111111
+    uid: "{{ team_admin_id }}"
     shell: /bin/bash
-    generate_ssh_key: yes
-    ssh_key_type: "{{ ssh_type }}"
-    ssh_key_bits: "{{ ssh_key_length }}"
-    password: "{{ password | password_hash('sha512', password_salt) }}"
-    update_password: on_create
+    create_home: true
+    ssh_key_type: rsa
+    ssh_key_bits: 4096
+    password: "{{ admin_password }}"
+    state: present
+  ansible.posix.authorized_key:
+    user: "{{ team_admin }}"
+    state: present
+    key: /depot/key/auto.pub
+

@@ -1,8 +1,15 @@
 ---
+- name: initial setup
+  hosts: splunk,ecomm
+  gather_facts: true
+  roles:
+    - make_banner
+    - fix_sudo
+    - setup_sshd
 - name: setup "{{ test_admin }}" on splunk host
-  hosts: splunk
+  hosts: splunk,ecomm
   vars_files:
-    - "vault/main.yml"
+    - "/depot/vault/secure.yml"
   gather_facts: false
   roles:
     - setup_admin
