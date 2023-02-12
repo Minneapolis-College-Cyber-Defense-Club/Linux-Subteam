@@ -1,4 +1,10 @@
 ---
-- include_tasks: cleanup.yml
-- include_tasks: copy.yml
-- include_tasks: link.yml
+- name: cleanup banner files
+  ansible.builtin.import_tasks:
+    file: clean_up.yml
+- name: make a new /etc/banner
+  ansible.builtin.import_tasks:
+    file: copy.yml
+- name: link new banner to files
+  ansible.builtin.import_tasks:
+    file: link.yml

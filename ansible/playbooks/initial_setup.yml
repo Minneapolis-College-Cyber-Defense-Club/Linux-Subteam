@@ -6,6 +6,6 @@
     - "/depot/vault/secure.yml"
   roles:
     - make_banner
-    - fix_sudo
-    - setup_sshd
-    - setup_admin
+#    - fix_sudo
+#    - setup_sshd
+#    - setup_admin
