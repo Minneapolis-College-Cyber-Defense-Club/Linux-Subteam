@@ -3,7 +3,7 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin
 
 # initial checks
-if [ $(whomai) != "root" ]; then   
+if [[ $(whomai) != "root" ]]; then   
     printf "Must run as root.\n"
     exit 666
 fi
@@ -52,6 +52,7 @@ yum install -y epel-release
 [[ -x /bin/python ]] || yum install -y python
 [[ -x /bin/ansbile ]] || yum install -y ansible
 [[ -x /bin/wget ]] || yum install -y wget
+[[ -x /bin/git ]] || yum install -y git
 
 # you should probably already have wget installed by this point, but validate
 if [[ -x /bin/wget ]]; then
