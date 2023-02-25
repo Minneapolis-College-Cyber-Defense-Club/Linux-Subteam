@@ -3,7 +3,7 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin
 
 # initial checks
-if [[ $(whomai) != "root" ]]; then   
+if [[ $(/bin/whoami) != "root" ]]; then   
     printf "Must run as root.\n"
     exit 666
 fi
