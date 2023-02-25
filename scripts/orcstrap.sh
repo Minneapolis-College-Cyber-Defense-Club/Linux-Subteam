@@ -3,13 +3,24 @@
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin
 
 # initial checks
-if [[ $(/bin/whoami) != "root" ]]; then   
+if [[ $(/bin/whoami) != 'root' ]]; then   
     printf "Must run as root.\n"
     exit 666
 fi
 # make sure it is setup on the expected OS
-if [[ $(grep '^ID=' /etc/os-release | awk -F\" '{print $2}') = "centos" ]] && [[ $(grep '^VERISON_ID=' /etc/os-release | awk -F\" '{print $2}') = "7" ]]; then
-    printf "correct OS detected...\n"
+[[ ! $(grep '^ID=' /etc/os-release | awk -F\" '{print $2}') = "centos" ]] && (printf "wrong os detected...bye.\n"; exit 667)
+[[ ! $(grep '^VERISON_ID=' /etc/os-release | awk -F\" '{print $2}') = "7" ]] && (printf "wrong os-version dedtected...bye.\n"; exit 667)
+
+
+
+
+if [[ $(grep '^ID=' /etc/os-release | awk -F\" '{print $2}') = "centos" ]]; then
+    if [[ $(grep '^VERISON_ID=' /etc/os-release | awk -F\" '{print $2}') = "7" ]]; then
+        printf "correct OS detected...\n"
+    else
+        printf "wrong OS detected...bye.\b"
+        exit 667
+    fi
 else
     printf "wrong OS detected...bye.\b"
     exit 667
