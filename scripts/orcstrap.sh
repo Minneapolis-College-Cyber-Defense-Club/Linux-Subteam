@@ -7,7 +7,9 @@ HOSTNAME="$(uname -n)"
 DEPOT="/depot"
 OS="$(grep '^ID=' /etc/os-release | awk -F\" '{print $2}')"
 OS_VER="$(grep '^VERISON_ID=' /etc/os-release | awk -F\" '{print $2}')"
-
+URL_BASE="https://raw.githubusercontent.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam/main"
+SCR_BASE="${URL_BASE}/scripts"
+PB_BASE="${URL_BASE}/ansible/playbooks"
 
 # initial checks
 if [[ $(/bin/whoami) != 'root' ]]; then   
@@ -17,14 +19,21 @@ fi
 # make sure it is setup on the expected OS
 [[ ${OS} != centos && ${OS_VER} != 7 ]] || (printf "wrong os detected...bye.\n" ; exit 667)
 
+# create the depot
+for d in vault keys files ansible quarantine
+do
+    mkdir -p ${DEPOT}/${d}
+done
+chown -R root: ${DEPOT}
+
 # build file quarantine
-QUARANTINE=/root/quarantine
-mkdir ${QUARANTINE}
-chown root:${QUARANTINE}
+QUARANTINE="${DEPOT}/quarantine"
 chmod 700 ${QUARANTINE}
 
 # basic security and functionality checks
 # at this point /etc/resolv.conf should have been fixed via kill chain BUT VALIDATE
+# backup /etc/resolv.conf
+cp /etc/resolv.conf ${QUARANTINE}/
 grep "${DNS}" /etc/resolv.conf 
 case $? in
     0) 
@@ -35,6 +44,12 @@ case $? in
         printf "nameserver ${DNS} \n">/etc/resolv.conf
         ;;
 esac
+
+# backup important files
+cp -p /etc/hosts ${QUARANTINE}/
+cp -p /root/.bash_history ${QUARANTINE}/root.bash_history
+cp -p /etc/ssh/sshd_config ${QUARANTINE}/
+
 # clean out crontabs
 mkdir ${QUARANTINE}/crons
 for c in $(ls /var/spool/cron)
@@ -45,59 +60,44 @@ done
 
 
 # install required packages
+# need EPEL
 yum install -y epel-release
 [[ -x /bin/python ]] || yum install -y python
 [[ -x /bin/ansbile ]] || yum install -y ansible
 [[ -x /bin/wget ]] || yum install -y wget
-[[ -x /bin/git ]] || yum install -y git
+PULLER="/bin/wget"
 
-# you should probably already have wget installed by this point, but validate
-if [[ -x /bin/wget ]]; then
-    PULLER="/bin/wget"
-elif [[ -x /bin/curl ]]; then
-    PULLER="/bin/curl"
-else
-    printf "Unable to determine URL pull tool, install wget.\n"
-fi
-
-# create the depot
-for d in vault keys files ansible
-do
-    mkdir -p ${DEPOT}/${d}
-done
-chown -R root: ${DEPOT}
 
 # create things needed
 for u in hal9000 dave2001
 do
-    #read -p "enter password for ${u}: " u_password
-    h_password="$(python -c 'import crypt,getpass; print(crypt.crypt(getpass.getpass(),crypt.mksalt(METHOD_SHA512)))')"
+    h_password="$(python -c 'import crypt,getpass; print(crypt.crypt(getpass.getpass(),crypt.METHOD_SHA512))')"
     [[ -d ${DEPOT}/vault ]] || mkdir -p ${DEPOT}/vault
     echo "${u}_password: ${h_password}" > ${DEPOT}/vault/${u}.yml
 
     case "${u}" in
         hal9000)
-            uid=111111
-            gid=111111
+            uid="111111"
+            gid="111111"
             ;;
         dave2001)
-            uid=111112
-            gid=111112
+            uid="111112"
+            gid="111112"
             ;;
     esac
 # group creation
-    grep "${u}" /etc/group
-    groupadd -g "${gid}" "${u}"
-    case $? in
-        0) 
-            printf "groupadd successful...\n"
-            grep "${u}" /etc/group
-            ;;
-        *)
-            printf "groupadd failed, fix issue and re-run.\n"
-            exit 1
-            ;;
-    esac
+#    grep "${u}" /etc/group
+#    groupadd -g "${gid}" "${u}"
+#    case $? in
+#        0) 
+#            printf "groupadd successful...\n"
+#            grep "${u}" /etc/group
+#            ;;
+#        *)
+#            printf "groupadd failed, fix issue and re-run.\n"
+#            exit 1
+#            ;;
+#    esac
 # user creation
 #    useradd -m -u "${uid}" -g "${gid}" -s/bin/bash -c"${u}" ${u}
 #    case $? in
