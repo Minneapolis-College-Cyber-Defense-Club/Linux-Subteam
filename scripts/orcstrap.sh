@@ -15,31 +15,13 @@ if [[ $(/bin/whoami) != 'root' ]]; then
     exit 666
 fi
 # make sure it is setup on the expected OS
-[[ "${OS}" != "centos" ]] && (printf "wrong os detected...bye.\n"; exit 667)
-[[ "${OS_VER}" != "7" ]] && (printf "wrong os-version dedtected...bye.\n"; exit 667)
-
-
-
-
-if [[ $(grep '^ID=' /etc/os-release | awk -F\" '{print $2}') = "centos" ]]; then
-    if [[ $(grep '^VERISON_ID=' /etc/os-release | awk -F\" '{print $2}') = "7" ]]; then
-        printf "correct OS detected...\n"
-    else
-        printf "wrong OS detected...bye.\b"
-        exit 667
-    fi
-else
-    printf "wrong OS detected...bye.\b"
-    exit 667
-fi
+[[ ${OS} != centos && ${OS_VER} != 7 ]] || (printf "wrong os detected...bye.\n" ; exit 667)
 
 # build file quarantine
 QUARANTINE=/root/quarantine
 mkdir ${QUARANTINE}
 chown root:${QUARANTINE}
 chmod 700 ${QUARANTINE}
-
-
 
 # basic security and functionality checks
 # at this point /etc/resolv.conf should have been fixed via kill chain BUT VALIDATE
