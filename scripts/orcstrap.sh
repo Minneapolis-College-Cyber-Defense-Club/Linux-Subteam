@@ -8,8 +8,8 @@ DEPOT="/depot"
 OS="$(grep '^ID=' /etc/os-release | awk -F\" '{print $2}')"
 OS_VER="$(grep '^VERISON_ID=' /etc/os-release | awk -F\" '{print $2}')"
 URL_BASE="https://raw.githubusercontent.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam/main"
-SCR_BASE="${URL_BASE}/scripts"
-PB_BASE="${URL_BASE}/ansible/playbooks"
+SCR_BASE="${DEPOT}/scripts"
+PB_BASE="${DEPOT}/ansible/playbooks"
 
 # initial checks
 if [[ $(/bin/whoami) != 'root' ]]; then   
@@ -20,11 +20,12 @@ fi
 [[ ${OS} != centos && ${OS_VER} != 7 ]] || (printf "wrong os detected...bye.\n" ; exit 667)
 
 # create the depot
-for d in vault keys files ansible quarantine
+for d in vault keys files ansible quarantine scripts
 do
     mkdir -p ${DEPOT}/${d}
 done
 chown -R root: ${DEPOT}
+chmod 700 ${DEPOT}
 
 # build file quarantine
 QUARANTINE="${DEPOT}/quarantine"
@@ -32,8 +33,9 @@ chmod 700 ${QUARANTINE}
 
 # basic security and functionality checks
 # at this point /etc/resolv.conf should have been fixed via kill chain BUT VALIDATE
-# backup /etc/resolv.conf
+# backup and validate files
 cp /etc/resolv.conf ${QUARANTINE}/
+# critical we don't have a poisoned DNS 
 grep "${DNS}" /etc/resolv.conf 
 case $? in
     0) 
@@ -44,11 +46,10 @@ case $? in
         printf "nameserver ${DNS} \n">/etc/resolv.conf
         ;;
 esac
-
-# backup important files
 cp -p /etc/hosts ${QUARANTINE}/
 cp -p /root/.bash_history ${QUARANTINE}/root.bash_history
 cp -p /etc/ssh/sshd_config ${QUARANTINE}/
+cp -pr /etc/suoders* ${QUARANTINE}/
 
 # clean out crontabs
 mkdir ${QUARANTINE}/crons
@@ -67,24 +68,31 @@ yum install -y epel-release
 [[ -x /bin/wget ]] || yum install -y wget
 PULLER="/bin/wget"
 
+# pull the things
+${PULLER} -N -P ${DEPOT}/ansible ${URL_BASE}/ansible
+${PULLER} -N -P ${DEPOT}/scripts ${URL_BASE}/scripts
 
 # create things needed
 for u in hal9000 dave2001
 do
     h_password="$(python -c 'import crypt,getpass; print(crypt.crypt(getpass.getpass(),crypt.METHOD_SHA512))')"
     [[ -d ${DEPOT}/vault ]] || mkdir -p ${DEPOT}/vault
-    echo "${u}_password: ${h_password}" > ${DEPOT}/vault/${u}.yml
-
+    USERVAULT="${DEPOT}/vault/${u}.yml"
+    KEYFILE="${DEPOT}/keys/${u}"
+    echo "${u}_password: ${h_password}" > ${USERVAULT}
+    ${PULLER} -N -P ${DEPOT}/playbooks/ ${PB_BASE}/${u}_strap.yml
+    # add more to the vault
     case "${u}" in
         hal9000)
-            uid="111111"
-            gid="111111"
+            printf "uid: 111111\ngid: 111111\n">>${USERVAULT}
             ;;
         dave2001)
-            uid="111112"
-            gid="111112"
+            printf "uid: 111112\ngid: 111112\n">>${USERVAULT}
             ;;
     esac
+    ssh-keygen -q -N "" -f ${KEYFILE} -t rsa -b 4096
+
+
 # group creation
 #    grep "${u}" /etc/group
 #    groupadd -g "${gid}" "${u}"
