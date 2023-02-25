@@ -1,6 +1,13 @@
 #!/bin/bash
 
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin
+# global vars
+DNS="1.1.1.1"
+HOSTNAME="$(uname -n)"
+DEPOT="/depot"
+OS="$(grep '^ID=' /etc/os-release | awk -F\" '{print $2}')"
+OS_VER="$(grep '^VERISON_ID=' /etc/os-release | awk -F\" '{print $2}')"
+
 
 # initial checks
 if [[ $(/bin/whoami) != 'root' ]]; then   
@@ -8,8 +15,8 @@ if [[ $(/bin/whoami) != 'root' ]]; then
     exit 666
 fi
 # make sure it is setup on the expected OS
-[[ ! $(grep '^ID=' /etc/os-release | awk -F\" '{print $2}') = "centos" ]] && (printf "wrong os detected...bye.\n"; exit 667)
-[[ ! $(grep '^VERISON_ID=' /etc/os-release | awk -F\" '{print $2}') = "7" ]] && (printf "wrong os-version dedtected...bye.\n"; exit 667)
+[[ "${OS}" != "centos" ]] && (printf "wrong os detected...bye.\n"; exit 667)
+[[ "${OS_VER}" != "7" ]] && (printf "wrong os-version dedtected...bye.\n"; exit 667)
 
 
 
@@ -32,10 +39,7 @@ mkdir ${QUARANTINE}
 chown root:${QUARANTINE}
 chmod 700 ${QUARANTINE}
 
-# global vars
-DNS="1.1.1.1"
-HOSTNAME="$(uname -n)"
-DEPOT="/depot"
+
 
 # basic security and functionality checks
 # at this point /etc/resolv.conf should have been fixed via kill chain BUT VALIDATE
