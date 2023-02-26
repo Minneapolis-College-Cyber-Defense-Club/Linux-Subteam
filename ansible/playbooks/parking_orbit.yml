@@ -1,5 +1,5 @@
 ---
-- name: orc setup
+- name: wake the crew
   gather_facts: true
   hosts: localhost
   connection: local
