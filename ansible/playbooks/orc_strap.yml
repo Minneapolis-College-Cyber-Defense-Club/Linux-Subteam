@@ -4,9 +4,15 @@
   hosts: localhost
   connection: local
   tasks:
-    - name: orc prep
+    - name: user_setup
       ansible.builtin.include_role:
-        name: orc_prep
+        name: user_setup
+      vars:
+        orcman: "hal9000"
+        set_key: true
+    - name: storekey
+      ansible.builtin.include_role:
+        name: storekey
       vars:
         orcman: "hal9000"
     - name: do_sudo
@@ -14,11 +20,12 @@
         name: do_sudo 
       vars:
         orcman: "hal9000"
-    - name: orc prep
+    - name: user_setup
       ansible.builtin.include_role:
-        name: orc_prep
+        name: user_setup
       vars:
         orcman: "dave2001"
+        set_key: true
     - name: do_sudo
       ansible.builtin.include_role:
         name: do_sudo 

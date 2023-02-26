@@ -1,14 +1,8 @@
 ---
+- name: check for var file
+  ansbile.builtin.stat:
+    path: "/depot/vault/{{ orcman }}.yml"
+  register: varfile_state
 - include_vars: "/depot/vault/{{ orcman }}.yml"
-- name: groupadd
-  ansible.builtin.import_tasks:
-    file: groupadd.yml
-- name: useradd
-  ansible.builtin.import_tasks:
-    file: useradd.yml
-- name: store key
-  ansible.builtin.import_tasks:
-    file: store.yml
-- name: adjust authorized_keys
-  ansible.builtin.import_tasks:
-    file: user_key.yml
+  when: varfile_state.stat.exists
+

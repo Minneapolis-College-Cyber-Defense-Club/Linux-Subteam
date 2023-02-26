@@ -8,11 +8,12 @@
         name: libselinux-python
         state: present
       when: ansible_facts['distribution'] == "CentOS"
-    - name: orc prep
+    - name: add dave2001 to the pods
       ansible.builtin.include_role:
-        name: pod_prep
+        name: user_setup
       vars:
         orcman: "dave2001"
+        set_key: true
     - name: do_sudo
       ansible.builtin.include_role:
         name: do_sudo 

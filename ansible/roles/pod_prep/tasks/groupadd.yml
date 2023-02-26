@@ -1,6 +1,0 @@
----
-- name: groupadd "{{ orcman }}"
-  ansible.builtin.group:
-    name: "{{ orcman }}"
-    gid: "{{ orcman_id }}"
-    state: present

@@ -7,5 +7,5 @@
     create_home: true
     ssh_key_type: rsa
     ssh_key_bits: 4096
-    password: "{{ admin_password }}"
+    password: "{{ h_password }}"
     state: present

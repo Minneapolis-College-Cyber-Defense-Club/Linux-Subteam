@@ -133,7 +133,7 @@ do
             USERID="111112"
             ;;
     esac
-    printf "team_admin: ${u}\nteam_admin_id: ${USERID}\n" >> ${USERVAULT}
+    printf "orcman: ${u}\norcman_id: ${USERID}\n" >> ${USERVAULT}
 done
 ansible-playbook -i localhost, ${PB_BASE}/orc_strap.yml
 
