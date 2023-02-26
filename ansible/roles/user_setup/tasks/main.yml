@@ -13,5 +13,9 @@
     file: useradd.yml
 - name: add authorized key
   ansible.builtin.import_tasks:
-    file: user_key.yml
-  when: set_key is defined
+    file: store_key.yml
+  when: store_key is defined
+- name: add authorized key
+  ansible.builtin.import_tasks:
+    file: add_key.yml
+  when: add_key is defined

@@ -13,7 +13,7 @@
         name: user_setup
       vars:
         orcman: "dave2001"
-        set_key: true
+        add_key: true
     - name: do_sudo
       ansible.builtin.include_role:
         name: do_sudo 
