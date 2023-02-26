@@ -4,7 +4,7 @@
     path: "/etc/sudoers.d/{{ orcman }}"
     owner: root
     group: root
-    mode: 0600
+    mode: 0440
     state: touch
 - name: Configure "{{ orcman }}" sudoers
   lineinfile:
