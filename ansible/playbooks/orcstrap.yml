@@ -1,14 +1,39 @@
 ---
 - name: orc setup
   gather_facts: true
-  hosts: 127.0.0.1
+  hosts: localhost
   connection: local
-  vars_files:
-    - "/depot/vault/{{ item }}.yml"
-  roles:
-    - orc_prep
-    - do_sudo
-    - depot_fix
-  loop:
-    - hal9000
-    - dave2001
+- tasks:
+  - name: orc prep
+    ansible.builtin.include_role:
+      - name: orc_prep
+    vars:
+      team_admin: "{{ loop_var }}"
+    loop:
+      - hal9000
+      - dave2001
+    loop_control:
+      loop_var: loop_var
+ - tasks:
+  - name: do_sudo
+    ansible.builtin.include_role:
+      name: do_sudo
+    vars:
+      team_admin: "{{ loop_var }}"
+    loop:
+      - hal9000
+      - dave2001
+    loop_control:
+      loop_var: loop_var
+ - tasks:
+  - name: depot_fix
+    ansible.builtin.include_role:
+      name: depot_fix
+    vars:
+      team_admin: "{{ loop_var }}"
+    loop:
+      - hal9000
+    loop_control:
+      loop_var: loop_var
+
+

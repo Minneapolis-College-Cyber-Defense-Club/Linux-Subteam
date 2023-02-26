@@ -97,7 +97,6 @@ yum install -y epel-release libselinux-python
 [[ -x /bin/tmux ]] || yum install -y tmux
 [[ -x /bin/wget ]] || yum install -y wget
 [[ -x /bin/git ]] || yum install -y git
-PULLER="/bin/wget"
 
 printf "populating the structure...\n"
 # pull the things
@@ -120,9 +119,7 @@ do
     h_password="$(python -c 'import crypt,getpass; print(crypt.crypt(getpass.getpass(),crypt.METHOD_SHA512))')"
     [[ -d ${DEPOT}/vault ]] || mkdir -p ${DEPOT}/vault
     USERVAULT="${DEPOT}/vault/${u}.yml"
-    KEYFILE="${DEPOT}/keys/${u}"
     echo "h_password: ${h_password}" > ${USERVAULT}
-    ${PULLER} -N -P ${DEPOT}/playbooks/ ${PB_BASE}/${u}_strap.yml
     # add more to the vault
     case "${u}" in
         hal9000)
@@ -133,13 +130,11 @@ do
             ;;
     esac
     printf "team_admin: ${u}\nteam_admin_id: ${USERID}\n" >> ${USERVAULT}
-    #ssh-keygen -q -N "" -f ${KEYFILE} -t rsa -b 4096
 done
-ansible-playbook ${PB_BASE}/orcstrap.yml
+#ansible-playbook -i localhost, ${PB_BASE}/orcstrap.yml
 
 # clean up and hand over
 #rm -fr ~/.ansible
 
 # pull the collections
-su -c "ansible-galaxy collection install ${COLLECTIONS}" hal9000
-
+#su -c "ansible-galaxy collection install ${COLLECTIONS}" hal9000

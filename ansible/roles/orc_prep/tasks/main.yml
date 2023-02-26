@@ -1,4 +1,6 @@
 ---
+- vars_files:
+  - "/depot/vault/{{ team_admin }}.yml"
 - name: groupadd
   ansible.builtin.import_tasks:
     file: groupadd.yml
