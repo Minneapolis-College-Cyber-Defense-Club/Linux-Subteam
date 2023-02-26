@@ -1,5 +1,5 @@
 ---
-- name: pod setup
+- name: open the pod bay doors Hal
   gather_facts: true
   hosts: all
   tasks:

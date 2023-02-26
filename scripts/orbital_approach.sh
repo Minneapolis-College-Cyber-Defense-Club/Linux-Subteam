@@ -135,7 +135,7 @@ do
     esac
     printf "orcman: ${u}\norcman_id: ${USERID}\n" >> ${USERVAULT}
 done
-ansible-playbook -i localhost, ${PB_BASE}/orc_strap.yml
+ansible-playbook -i localhost, ${PB_BASE}/parking_orbit.yml
 
 # pull the collections
 su -c "ansible-galaxy collection install ${COLLECTIONS}" hal9000
