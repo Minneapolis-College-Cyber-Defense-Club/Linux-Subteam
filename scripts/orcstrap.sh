@@ -35,7 +35,7 @@ done
 
 # create the depot
 printf "generating depot structure..."
-for d in vault keys files ansible quarantine scripts
+for d in vault keys files quarantine
 do
     mkdir -p ${DEPOT}/${d}
 done
@@ -95,13 +95,15 @@ yum install -y epel-release libselinux-python
 [[ -x /bin/ansbile ]] || yum install -y ansible
 [[ -x /bin/tmux ]] || yum install -y tmux
 [[ -x /bin/wget ]] || yum install -y wget
+[[ -x /bin/git ]] || yum install -y git
 PULLER="/bin/wget"
 
 printf "populating the structure...\n"
 # pull the things
 for t in ansible scripts
 do
-${PULLER} -r -l 20 -N -P ${DEPOT}/${t} ${URL_BASE}/${t}
+    git clone https://github.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam.git
+    cp -r ~/Linux-Subteam/${t} ${DEPOT}/
 done
 
 # pull the collections
