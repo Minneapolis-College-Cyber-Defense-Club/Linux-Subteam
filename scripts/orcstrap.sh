@@ -7,6 +7,7 @@ HOSTNAME="$(uname -n)"
 DEPOT="/depot"
 OS="$(grep '^ID=' /etc/os-release | awk -F\" '{print $2}')"
 OS_VER="$(grep '^VERISON_ID=' /etc/os-release | awk -F\" '{print $2}')"
+GITHOLE="https://github.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam.git"
 URL_BASE="https://raw.githubusercontent.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam/main"
 SCR_BASE="${DEPOT}/scripts"
 PB_BASE="${DEPOT}/ansible/playbooks"
@@ -102,9 +103,11 @@ printf "populating the structure...\n"
 # pull the things
 for t in ansible scripts
 do
-    git clone https://github.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam.git
+    git clone ${GITHOLE}
     cp -r ~/Linux-Subteam/${t} ${DEPOT}/
 done
+# make it read-only
+chmod 0600 ~/Linux-Subteam
 
 # pull the collections
 ansible-galaxy collection install ${COLLECTIONS}
