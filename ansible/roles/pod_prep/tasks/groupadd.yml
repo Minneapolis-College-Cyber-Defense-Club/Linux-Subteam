@@ -1,0 +1,6 @@
+---
+- name: groupadd "{{ team_admin }}"
+  ansible.builtin.group:
+    name: "{{ team_admin }}"
+    gid: "{{ team_admin_id }}"
+    state: present

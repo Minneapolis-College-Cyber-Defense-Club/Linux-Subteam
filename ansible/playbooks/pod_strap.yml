@@ -1,0 +1,20 @@
+---
+- name: pod setup
+  gather_facts: true
+  hosts: all
+  tasks:
+    - name: fix centos libselinux-python issue
+      ansible.builtin.package:
+        name: libselinux-python
+        state: present
+      when: ansible_facts['distribution'] == "CentOS"
+    - name: orc prep
+      ansible.builtin.include_role:
+        name: pod_prep
+      vars:
+        team_admin: "dave2001"
+    - name: do_sudo
+      ansible.builtin.include_role:
+        name: do_sudo 
+      vars:
+        team_admin: "dave2001"

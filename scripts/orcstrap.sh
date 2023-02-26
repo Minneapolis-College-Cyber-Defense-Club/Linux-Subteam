@@ -135,7 +135,7 @@ do
     esac
     printf "team_admin: ${u}\nteam_admin_id: ${USERID}\n" >> ${USERVAULT}
 done
-ansible-playbook -i localhost, ${PB_BASE}/orcstrap.yml
+ansible-playbook -i localhost, ${PB_BASE}/orc_strap.yml
 
 # pull the collections
 su -c "ansible-galaxy collection install ${COLLECTIONS}" hal9000
