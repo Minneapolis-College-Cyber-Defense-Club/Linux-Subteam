@@ -1,17 +1,17 @@
 ---
 - name: create the new file
   ansible.builtin.file:
-    path: "/etc/sudoers.d/{{ team_admin }}"
+    path: "/etc/sudoers.d/{{ orcman }}"
     owner: root
     group: root
     mode: 0600
     state: touch
-- name: Configure "{{ team_admin }}" sudoers
+- name: Configure "{{ orcman }}" sudoers
   lineinfile:
-    path: "/etc/sudoers.d/{{ team_admin }}"
+    path: "/etc/sudoers.d/{{ orcman }}"
     regex: "^(#)?{{item.key}}"
     line: "{{item.key}} {{item.value}}"
     state: present
   loop:
     - { key: "Defaults", value: " secure_path = /bin:/sbin:/usr/bin:/usr/sbin" }
-    - { key: "{{ team_admin }}", value: " ALL=(ALL)  ALL" }
+    - { key: "{{ orcman }}", value: " ALL=(ALL)  ALL" }

@@ -1,6 +1,6 @@
 ---
-- name: groupadd "{{ team_admin }}"
+- name: groupadd "{{ orcman }}"
   ansible.builtin.group:
-    name: "{{ team_admin }}"
-    gid: "{{ team_admin_id }}"
+    name: "{{ orcman }}"
+    gid: "{{ orcman_id }}"
     state: present

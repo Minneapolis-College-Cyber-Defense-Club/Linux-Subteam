@@ -12,9 +12,9 @@
       ansible.builtin.include_role:
         name: pod_prep
       vars:
-        team_admin: "dave2001"
+        orcman: "dave2001"
     - name: do_sudo
       ansible.builtin.include_role:
         name: do_sudo 
       vars:
-        team_admin: "dave2001"
+        orcman: "dave2001"

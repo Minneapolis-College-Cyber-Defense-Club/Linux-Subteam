@@ -1,5 +1,5 @@
 ---
-- include_vars: "/depot/vault/{{ team_admin }}.yml"
+- include_vars: "/depot/vault/{{ orcman }}.yml"
 - name: groupadd
   ansible.builtin.import_tasks:
     file: groupadd.yml

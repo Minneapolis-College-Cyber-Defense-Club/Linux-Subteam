@@ -1,8 +1,8 @@
 ---
-- name: useradd "{{ team_admin }}"
+- name: useradd "{{ orcman }}"
   ansible.builtin.user:
-    name: "{{ team_admin }}"
-    uid: "{{ team_admin_id }}"
+    name: "{{ orcman }}"
+    uid: "{{ orcman_id }}"
     shell: /bin/bash
     create_home: true
     ssh_key_type: rsa

@@ -1,6 +1,6 @@
 ---
-- name: add orc authkey "{{ team_admin }}"
+- name: add orc authkey "{{ orcman }}"
   ansible.posix.authorized_key:
-    user: "{{ team_admin }}"
+    user: "{{ orcman }}"
     state: present
     key: "{{ lookup('file', '/depot/keys/hal9000.id_rsa.pub') }}"

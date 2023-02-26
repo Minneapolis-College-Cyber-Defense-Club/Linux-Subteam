@@ -8,22 +8,22 @@
       ansible.builtin.include_role:
         name: orc_prep
       vars:
-        team_admin: "hal9000"
+        orcman: "hal9000"
     - name: do_sudo
       ansible.builtin.include_role:
         name: do_sudo 
       vars:
-        team_admin: "hal9000"
+        orcman: "hal9000"
     - name: orc prep
       ansible.builtin.include_role:
         name: orc_prep
       vars:
-        team_admin: "dave2001"
+        orcman: "dave2001"
     - name: do_sudo
       ansible.builtin.include_role:
         name: do_sudo 
       vars:
-        team_admin: "dave2001"
+        orcman: "dave2001"
     - name: depot_fix
       ansible.builtin.include_role:
         name: depot_fix

@@ -1,6 +1,6 @@
 ---
-- name: add auto authkey "{{ team_admin }}"
+- name: add auto authkey "{{ orcman }}"
   ansible.posix.authorized_key:
-    user: "{{ team_admin }}"
+    user: "{{ orcman }}"
     state: present
-    key: "{{ lookup('file', '/depot/keys/{{ team_admin }}.id_rsa.pub') }}"
+    key: "{{ lookup('file', '/depot/keys/{{ orcman }}.id_rsa.pub') }}"
