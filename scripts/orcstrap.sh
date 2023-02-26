@@ -59,7 +59,7 @@ case $? in
         printf "Looks correct.\n" 
         ;;
     *) 
-        mv /etc/resolv.conf ~/${QUARANTINE}/
+        mv /etc/resolv.conf ${QUARANTINE}/
         printf "nameserver ${DNS} \n">/etc/resolv.conf
         ;;
 esac
@@ -101,7 +101,7 @@ printf "populating the structure...\n"
 # pull the things
 for t in ansible scripts
 do
-${PULLER} -N -P ${DEPOT}/${t} ${URL_BASE}/${t}
+${PULLER} -r -l 20 -N -P ${DEPOT}/${t} ${URL_BASE}/${t}
 done
 
 # pull the collections
