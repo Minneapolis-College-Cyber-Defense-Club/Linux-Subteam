@@ -70,7 +70,7 @@ printf "127.0.0.1 localhost localhost.localdomain\n::1 localhost localhost.local
 # in case there is more than 1 interface
 for i in $(ifconfig | cut -f1 -d: | grep '^[a-z]' | grep -v lo)
 do
-    printf "$(ifconfig ${i} |grep inet | grep -v inet6 | awk '{print $2}') $(uname -n | cut -f1 -d.) $(uname -n)">>/etc/hosts
+    printf "$(ifconfig ${i} |grep inet | grep -v inet6 | awk '{print $2}') $(uname -n | cut -f1 -d.) $(uname -n)\n">>/etc/hosts
 done
 printf "saving copies of other files...\n"
 cp -p /root/.bash_history ${QUARANTINE}/root.bash_history
@@ -93,6 +93,7 @@ printf "installing requirements...\n"
 yum install -y epel-release libselinux-python
 [[ -x /bin/python ]] || yum install -y python
 [[ -x /bin/ansbile ]] || yum install -y ansible
+[[ -x /bin/tmux ]] || yum install -y tmux
 [[ -x /bin/wget ]] || yum install -y wget
 PULLER="/bin/wget"
 
