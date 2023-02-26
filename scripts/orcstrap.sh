@@ -11,6 +11,7 @@ URL_BASE="https://raw.githubusercontent.com/Minneapolis-College-Cyber-Defense-Cl
 SCR_BASE="${DEPOT}/scripts"
 PB_BASE="${DEPOT}/ansible/playbooks"
 COLLECTIONS="ansible.posix community.mysql community.general"
+NOLOGIN="$(which nologin)"
 
 # initial checks
 if [[ $(/bin/whoami) != 'root' ]]; then   
@@ -20,7 +21,20 @@ fi
 # make sure it is setup on the expected OS
 [[ ${OS} != centos && ${OS_VER} != 7 ]] || (printf "wrong os detected...bye.\n" ; exit 667)
 
+# lock less tha uid 1024 accounts that aren't root
+printf "scanning accounts less than uid 1024...\n"
+for u in $(awk -F: '($3 < 1000) {print $1}' /etc/passwd)
+do
+    if [[ "${u}" != "root" ]]; then
+        usermod -L ${u}
+    fi
+    if [[ "${u}" != "sync"  && "${u}" != "shutdown" && "${u}" != "halt" && "${u}" != "root" ]]; then
+        usermod -s ${NOLOGIN} ${u}
+    fi
+done
+
 # create the depot
+printf "generating depot structure..."
 for d in vault keys files ansible quarantine scripts
 do
     mkdir -p ${DEPOT}/${d}
@@ -28,6 +42,7 @@ done
 chown -R root: ${DEPOT}
 chmod 700 ${DEPOT}
 
+printf "building quarantine..."
 # build file quarantine
 QUARANTINE="${DEPOT}/quarantine"
 chmod 700 ${QUARANTINE}
@@ -37,6 +52,7 @@ chmod 700 ${QUARANTINE}
 # backup and validate files
 cp /etc/resolv.conf ${QUARANTINE}/
 # critical we don't have a poisoned DNS 
+printf "checking dns...\n"
 grep "${DNS}" /etc/resolv.conf 
 case $? in
     0) 
@@ -47,6 +63,7 @@ case $? in
         printf "nameserver ${DNS} \n">/etc/resolv.conf
         ;;
 esac
+printf "checking /etc/hosts...\n"
 cp -p /etc/hosts ${QUARANTINE}/
 mv /etc/hosts /etc/hosts.prev
 printf "127.0.0.1 localhost localhost.localdomain\n::1 localhost localhost.localdomain\n">/etc/hosts
@@ -55,10 +72,10 @@ for i in $(ifconfig | cut -f1 -d: | grep '^[a-z]' | grep -v lo)
 do
     printf "$(ifconfig ${i} |grep inet | grep -v inet6 | awk '{print $2}') $(uname -n | cut -f1 -d.) $(uname -n)">>/etc/hosts
 done
-
+printf "saving copies of other files...\n"
 cp -p /root/.bash_history ${QUARANTINE}/root.bash_history
 cp -p /etc/ssh/sshd_config ${QUARANTINE}/
-cp -pr /etc/suoders* ${QUARANTINE}/
+cp -pr /etc/sudoers* ${QUARANTINE}/
 
 # clean out crontabs
 mkdir ${QUARANTINE}/crons
@@ -67,7 +84,10 @@ do
     mv /var/spool/${c}  ${QUARANTINE}/crons/
     [[ -f /var/spool/${c} ]] && rm -f /var/spool/${c}
 done
+printf "quarantine content: \n"
+ls -la ${QUARANTINE}
 
+printf "installing requirements...\n"
 # install required packages
 # need EPEL
 yum install -y epel-release libselinux-python
@@ -76,21 +96,26 @@ yum install -y epel-release libselinux-python
 [[ -x /bin/wget ]] || yum install -y wget
 PULLER="/bin/wget"
 
+printf "populating the structure...\n"
 # pull the things
-${PULLER} -N -P ${DEPOT}/ansible ${URL_BASE}/ansible
-${PULLER} -N -P ${DEPOT}/scripts ${URL_BASE}/scripts
+for t in ansible scripts
+do
+${PULLER} -N -P ${DEPOT}/${t} ${URL_BASE}/${t}
+done
 
 # pull the collections
 ansible-galaxy collection install ${COLLECTIONS}
 
 # create things needed
+printf "open the pod bay doors HAL...\n"
 for u in hal9000 dave2001
 do
+    printf "enter password for ${u}: \n"
     h_password="$(python -c 'import crypt,getpass; print(crypt.crypt(getpass.getpass(),crypt.METHOD_SHA512))')"
     [[ -d ${DEPOT}/vault ]] || mkdir -p ${DEPOT}/vault
     USERVAULT="${DEPOT}/vault/${u}.yml"
     KEYFILE="${DEPOT}/keys/${u}"
-    echo "${u}_password: ${h_password}" > ${USERVAULT}
+    echo "h_password: ${h_password}" > ${USERVAULT}
     ${PULLER} -N -P ${DEPOT}/playbooks/ ${PB_BASE}/${u}_strap.yml
     # add more to the vault
     case "${u}" in
@@ -103,14 +128,12 @@ do
     esac
     printf "team_admin: ${u}\nteam_admin_id: ${USERID}\n" >> ${USERVAULT}
     #ssh-keygen -q -N "" -f ${KEYFILE} -t rsa -b 4096
-    
-
 done
+ansible-playbook ${PB_BASE}/orcstrap.yml
 
 # clean up and hand over
-rm -fr ~/.ansible
+#rm -fr ~/.ansible
 
 # pull the collections
 su -c "ansible-galaxy collection install ${COLLECTIONS}" hal9000
 
-# open the pod bay doors

@@ -1,6 +1,4 @@
 ---
-- vars_files:
-    - "/depot/vault/dave2001.yml"
 - name: groupadd
   ansible.builtin.import_tasks:
     file: groupadd.yml
@@ -13,4 +11,3 @@
 - name: adjust authorized_keys
   ansible.builtin.import_tasks:
     file: user_key.yml
-

@@ -3,8 +3,10 @@
   ansible.builtin.user:
     name: "{{ team_admin }}"
     uid: "{{ team_admin_id }}"
+    group: "{{ team_admin }}"
     shell: /bin/bash
     create_home: true
+    generate_ssh_key: true
     ssh_key_type: rsa
     ssh_key_bits: 4096
     password: "{{ h_password }}"

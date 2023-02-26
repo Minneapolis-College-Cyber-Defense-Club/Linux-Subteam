@@ -1,0 +1,10 @@
+---
+- name: change permissions on depot struct
+  ansible.builtin.file:
+    path: /depot
+    state: directory
+    recurse: yes
+    owner: hal9000
+    group: hal9000
+    mode: "0700"
+
