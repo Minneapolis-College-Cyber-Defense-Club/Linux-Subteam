@@ -1,0 +1,10 @@
+---
+- name: add auto authkey "{{ team_admin }}"
+  ansible.posix.authorized_key:
+    become: true
+    become_user: "{{ team_admin }}"
+    become_method: sudo
+    user: "{{ team_admin }}"
+    state: present
+    key: "{{ lookup('file', '/depot/keys/{{ team_admin }}.id_rsa.pub') }}"
+

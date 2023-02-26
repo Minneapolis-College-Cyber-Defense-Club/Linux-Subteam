@@ -1,8 +1,4 @@
-team_admin: dave2001
-team_admin_id: 111112
-team_auto: hal9000
-team_auto_id: 111111
-safe_dns_server: 8.8.8.8
+safe_dns_server: 1.1.1.1
 ssh_type: rsa
 ssh_key_length: 4096
 ssh_path: .ssh/id_rsa
@@ -24,4 +20,4 @@ ssh_opt_UseDNS: "no"
 ssh_opt_LogLevel: "VERBOSE"
 ssh_opt_ClientMaxAliveCount: "2"
 ssh_opt_Banner: "/etc/banner"
-ssh_opt_DenyUsers: "!root,!hal9000,*"
+ssh_opt_DenyUsers: "!root,!hal9000,!dave2001,*"
