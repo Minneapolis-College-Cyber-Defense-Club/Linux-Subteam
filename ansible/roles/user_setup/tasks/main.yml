@@ -1,6 +1,6 @@
 ---
 - name: check for var file
-  ansbile.builtin.stat:
+  ansible.builtin.stat:
     path: "/depot/vault/{{ orcman }}.yml"
   register: varfile_state
 - include_vars: "/depot/vault/{{ orcman }}.yml"
