@@ -13,5 +13,5 @@
     line: "{{item.key}} {{item.value}}"
     state: present
   loop:
-    - { key: "Defaults", value: "secure_path = /bin:/sbin:/usr/bin:/usr/sbin" }
-    - { key: "{{ team_admin }}", value: "ALL=(ALL) ALL" }
+    - { key: "Defaults", value: " secure_path = /bin:/sbin:/usr/bin:/usr/sbin" }
+    - { key: "{{ team_admin }}", value: " ALL=(ALL)  ALL" }
