@@ -19,6 +19,11 @@ if [[ $(/bin/whoami) != 'root' ]]; then
     printf "Must run as root.\n"
     exit 666
 fi
+# changing root's password
+printf "enter new root password:\n"
+r_password="$(python -c 'import crypt,getpass; print(crypt.crypt(getpass.getpass(),crypt.METHOD_SHA512))')"
+echo ${r_password} | passwd root --stdin
+
 # make sure it is setup on the expected OS
 [[ ${OS} != centos && ${OS_VER} != 7 ]] || (printf "wrong os detected...bye.\n" ; exit 667)
 
@@ -113,7 +118,7 @@ ansible-galaxy collection install ${COLLECTIONS}
 
 # create things needed
 printf "open the pod bay doors HAL...\n"
-for u in hal9000 dave2001
+for u in hal9000 dave2001 root
 do
     printf "enter password for ${u}: \n"
     h_password="$(python -c 'import crypt,getpass; print(crypt.crypt(getpass.getpass(),crypt.METHOD_SHA512))')"
@@ -131,10 +136,10 @@ do
     esac
     printf "team_admin: ${u}\nteam_admin_id: ${USERID}\n" >> ${USERVAULT}
 done
-#ansible-playbook -i localhost, ${PB_BASE}/orcstrap.yml
+ansible-playbook -i localhost, ${PB_BASE}/orcstrap.yml
 
 # clean up and hand over
 #rm -fr ~/.ansible
 
 # pull the collections
-#su -c "ansible-galaxy collection install ${COLLECTIONS}" hal9000
+su -c "ansible-galaxy collection install ${COLLECTIONS}" hal9000
