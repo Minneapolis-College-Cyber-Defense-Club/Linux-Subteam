@@ -1,6 +1,5 @@
 ---
-- vars_files:
-  - "/depot/vault/{{ team_admin }}.yml"
+- include_vars: "/depot/vault/{{ team_admin }}.yml"
 - name: adjust /etc/sudoers file
   ansible.builtin.import_tasks:
     file: adjust.yml
