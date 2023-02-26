@@ -106,7 +106,7 @@ do
     cp -r ~/Linux-Subteam/${t} ${DEPOT}/
 done
 # make it read-only
-chmod 0600 ~/Linux-Subteam
+#chmod 0600 ~/Linux-Subteam
 
 # pull the collections
 ansible-galaxy collection install ${COLLECTIONS}
