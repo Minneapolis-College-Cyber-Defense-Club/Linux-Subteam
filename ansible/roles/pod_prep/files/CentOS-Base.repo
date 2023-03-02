@@ -1,6 +1,6 @@
 [base]
-name=CentOS-$releasever - Base
-baseurl=https://linuxsoft.cern.ch/centos-vault/$releasever/os/$basearch/
+name=CentOS-REPLACEWITHVER - Base
+baseurl=https://linuxsoft.cern.ch/centos-vault/REPLACEWITHVER/os/x86_64/
 gpgcheck=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 enabled=1
@@ -8,8 +8,8 @@ metadata_expire=never
 
 #released updates
 [updates]
-name=CentOS-$releasever - Updates
-baseurl=https://linuxsoft.cern.ch/centos-vault/$releasever/updates/$basearch/
+name=CentOS-REPLACEWITHVER - Updates
+baseurl=https://linuxsoft.cern.ch/centos-vault/REPLACEWITHVER/updates/x86_64/
 gpgcheck=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 enabled=1
@@ -17,8 +17,8 @@ metadata_expire=never
 
 # additional packages that may be useful
 [extras]
-name=CentOS-$releasever - Extras
-baseurl=https://linuxsoft.cern.ch/centos-vault/$releasever/extras/$basearch/
+name=CentOS-REPLACEWITHVER - Extras
+baseurl=https://linuxsoft.cern.ch/centos-vault/REPLACEWITHVER/extras/x86_64/
 gpgcheck=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 enabled=1
@@ -26,8 +26,8 @@ metadata_expire=never
 
 # additional packages that extend functionality of existing packages
 [centosplus]
-name=CentOS-$releasever - CentOSPlus
-baseurl=https://linuxsoft.cern.ch/centos-vault/$releasever/centosplus/$basearch/
+name=CentOS-REPLACEWITHVER - CentOSPlus
+baseurl=https://linuxsoft.cern.ch/centos-vault/REPLACEWITHVER/centosplus/x86_64/
 gpgcheck=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 enabled=0
@@ -35,8 +35,8 @@ metadata_expire=never
 
 #contrib - packages by Centos Users
 [contrib]
-name=CentOS-$releasever - Contrib
-baseurl=https://linuxsoft.cern.ch/centos-vault/$releasever/contrib/$basearch/
+name=CentOS-REPLACEWITHVER - Contrib
+baseurl=https://linuxsoft.cern.ch/centos-vault/REPLACEWITHVER/contrib/x86_64/
 gpgcheck=0
 gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
 enabled=0
