@@ -1,8 +1,16 @@
 ---
 # tasks file for ssh_setup
+- name: fix "{{ sshd_path }}" permissions
+  ansible.builtin.file:
+    path: "{{ sshd_path }}"
+    owner: root
+    group: root
+    mode: '0600'
+
 - name: Configure sshd
   lineinfile:
-    path: "/etc/ssh/sshd_config"
+    path: "{{ sshd_path }}"
+    backup: true
     regex: "^(#)?{{item.key}}"
     line: "{{item.key}} {{item.value}}"
     state: present
@@ -26,5 +34,6 @@
     - { key: "ClientMaxAliveCount", value: "{{ ssh_opt_ClientMaxAliveCount }}" }
     - { key: "Banner", value: "{{ ssh_opt_Banner }}" }
     - { key: "DenyUsers", value: "{{ ssh_opt_DenyUsers }}" }
+    - { key: "UsePAM", value: "{{ ssh_opt_UsePAM }}"}
   notify:
     - restart sshd

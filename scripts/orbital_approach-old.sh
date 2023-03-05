@@ -2,9 +2,8 @@
 
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin
 # global vars
-#DNS="1.1.1.1"
+DNS="1.1.1.1"
 HOSTNAME="$(uname -n)"
-IP="127.0.0.1"
 DEPOT="/depot"
 OS="$(grep '^ID=' /etc/os-release | awk -F\" '{print $2}')"
 OS_VER="$(grep '^VERISON_ID=' /etc/os-release | awk -F\" '{print $2}')"
@@ -20,49 +19,9 @@ if [[ $(/bin/whoami) != 'root' ]]; then
     printf "Must run as root.\n"
     exit 666
 fi
-
-# create the depot
-printf "generating depot structure..."
-for d in vault keys files quarantine
-do
-    mkdir -p ${DEPOT}/${d}
-done
-chown -R root: ${DEPOT}
-chmod 700 ${DEPOT}
-
-printf "building quarantine..."
-# build file quarantine
-QUARANTINE="${DEPOT}/quarantine"
-chmod 700 ${QUARANTINE}
-
-# gather passwords and build files
-#read -p "enter new root password: " r_password
-#echo ${r_password} | passwd root --stdin
-
-# create things needed
-printf "open the pod bay doors HAL...\n"
-for u in hal9000 dave2001 root
-do
-    printf "enter password for ${u}: \n"
-    h_password="$(python -c 'import crypt,getpass; print(crypt.crypt(getpass.getpass(),crypt.METHOD_SHA512))')"
-    [[ -d ${DEPOT}/vault ]] || mkdir -p ${DEPOT}/vault
-    USERVAULT="${DEPOT}/vault/${u}.yml"
-    echo "h_password: ${h_password}" > ${USERVAULT}
-    # add more to the vault
-    case "${u}" in
-        hal9000)
-            USERID="111111"
-            ;;
-        dave2001)
-            USERID="111112"
-            ;;
-        root)
-            USERID="0"
-            ;;
-    esac
-    printf "orcman: ${u}\norcman_id: ${USERID}\n" >> ${USERVAULT}
-done
-
+# changing root's password
+read -p "enter new root password: " r_password
+echo ${r_password} | passwd root --stdin
 
 # make sure it is setup on the expected OS
 [[ ${OS} != centos && ${OS_VER} != 7 ]] || (printf "wrong os detected...bye.\n" ; exit 667)
@@ -79,7 +38,19 @@ do
     fi
 done
 
+# create the depot
+printf "generating depot structure..."
+for d in vault keys files quarantine
+do
+    mkdir -p ${DEPOT}/${d}
+done
+chown -R root: ${DEPOT}
+chmod 700 ${DEPOT}
 
+printf "building quarantine..."
+# build file quarantine
+QUARANTINE="${DEPOT}/quarantine"
+chmod 700 ${QUARANTINE}
 
 # basic security and functionality checks
 # at this point /etc/resolv.conf should have been fixed via kill chain BUT VALIDATE
@@ -144,8 +115,27 @@ done
 # pull the collections
 ansible-galaxy collection install ${COLLECTIONS}
 
-
-ansible-playbook -i 127.0.0.1, ${PB_BASE}/parking_orbit.yml
+# create things needed
+printf "open the pod bay doors HAL...\n"
+for u in hal9000 dave2001
+do
+    printf "enter password for ${u}: \n"
+    h_password="$(python -c 'import crypt,getpass; print(crypt.crypt(getpass.getpass(),crypt.METHOD_SHA512))')"
+    [[ -d ${DEPOT}/vault ]] || mkdir -p ${DEPOT}/vault
+    USERVAULT="${DEPOT}/vault/${u}.yml"
+    echo "h_password: ${h_password}" > ${USERVAULT}
+    # add more to the vault
+    case "${u}" in
+        hal9000)
+            USERID="111111"
+            ;;
+        dave2001)
+            USERID="111112"
+            ;;
+    esac
+    printf "orcman: ${u}\norcman_id: ${USERID}\n" >> ${USERVAULT}
+done
+ansible-playbook -i localhost, ${PB_BASE}/parking_orbit.yml
 
 # pull the collections
 su -c "ansible-galaxy collection install ${COLLECTIONS}" hal9000

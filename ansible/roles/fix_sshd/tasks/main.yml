@@ -1,0 +1,23 @@
+---
+- include_vars: "../vars/sshd_vars.yml"
+
+- name: make backup
+  ansible.builtin.command: /bin/cp "{{ file_path }} {{ file_path }}.{{ ansible_date_time.iso8601_micro }}"
+
+- name: configure sshd
+  ansible.builtin.import_tasks:
+    file: configure.yml
+
+- name: add allowed
+  vars:
+    orcman: "{{ item }}"
+  ansible.builtin.import_tasks:
+    file: match_user.yml
+  loop:
+    - dave2001
+    - root
+
+- name: restart sshd
+  ansible.builtin.service:
+    name: sshd
+    state: restarted
