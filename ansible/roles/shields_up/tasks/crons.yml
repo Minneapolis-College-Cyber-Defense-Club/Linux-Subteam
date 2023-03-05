@@ -11,6 +11,5 @@
   ansible.builtin.shell: |
     for c in $(/bin/ls /var/spool/cron)
     do
-        mv /var/spool/${c}  {{ quarantine_path }}/crons/
+        /bin/mv /var/spool/cron/${c}  {{ quarantine_path }}/crons/
     done
-
