@@ -10,7 +10,7 @@
 - name: groupadd
   ansible.builtin.import_tasks:
     file: groupadd.yml
-  when: orcman is not "root"
+  when: orcman != "root"
 
 - name: useradd
   ansible.builtin.import_tasks:
