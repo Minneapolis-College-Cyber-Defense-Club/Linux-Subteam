@@ -1,2 +1,15 @@
 ---
 # tasks file for fix_repos
+- name: fix centos6
+  vars:
+    repo_path: /etc/yum.repos.d/CentOS-Base.repo
+  ansible.builtin.import_tasks:
+    file: repo_fixer.yml
+  when: ansible_facts['distribution'] == "CentOS" and ansible_facts['distribution_major_version'] == "6"
+
+- name: fix debian8
+  vars:
+    repo_path: /etc/apt/sources.list
+  ansible.builtin.import_tasks:
+    file: repo_fixer.yml
+  when: ansible_facts['distribution'] == "Debian" and ansible_facts['distribution_major_version'] == "8"
