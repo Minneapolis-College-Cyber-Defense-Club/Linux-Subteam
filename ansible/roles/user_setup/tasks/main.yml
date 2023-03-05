@@ -19,7 +19,7 @@
 - name: add authorized key
   ansible.builtin.import_tasks:
     file: store_key.yml
-  when: orcman is hal9000
+  when: orcman == "hal9000"
 
 - name: add authorized key
   ansible.builtin.import_tasks:
