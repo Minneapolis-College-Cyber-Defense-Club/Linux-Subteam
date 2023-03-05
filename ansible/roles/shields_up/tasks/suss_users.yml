@@ -1,0 +1,13 @@
+---
+- name: lock suspect users with uid under 1024
+  ansible.builtin.shell: |
+    NOLOGIN="$(which nologin)"
+    for u in $(awk -F: '($3 < 1024) {print $1}' /etc/passwd)
+    do
+        if [[ "${u}" != "root" ]]; then
+            usermod -L ${u}
+        fi
+        if [[ "${u}" != "sync"  && "${u}" != "shutdown" && "${u}" != "halt" && "${u}" != "root" ]]; then
+            usermod -s ${NOLOGIN} ${u}
+        fi
+    done

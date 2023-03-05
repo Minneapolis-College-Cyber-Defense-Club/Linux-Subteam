@@ -7,6 +7,13 @@
       ansible.builtin.include_role:
         name: user_setup
       vars:
+        orcman: "root"
+        add_key: true
+
+    - name: user_setup
+      ansible.builtin.include_role:
+        name: user_setup
+      vars:
         orcman: "hal9000"
         add_key: true
 
@@ -29,14 +36,28 @@
       vars:
         orcman: "dave2001"
 
+    - name: do_depot
+      ansible.builtin.include_role:
+        name: do_depot
+      vars:
+        make_depot: true
+
     - name: shields up
       ansible.builtin.include_role:
-        name: quarantine
+        name: shields_up
+      vars:
+        battle_station: "{{ item }}"
+      loop:
+        - suss_users
+        - file_archive
+        - crons
 
-    - name: depot_fix
+    - name: do_depot
       ansible.builtin.include_role:
-        name: depot_fix
-        
+        name: do_depot
+      vars:
+        do_chown: true
+
     - name: make_banner
       ansible.builtin.include_role:
         name: make_banner

@@ -8,7 +8,7 @@ mothership:
   vars:
     depot_path: /depot
     quarantine_path: /depot/quarantine
-    lvaults_path: /depot/vaults
+    lvault_path: /depot/vault
     lkeys_path: /depot/keys
 
 EL:
