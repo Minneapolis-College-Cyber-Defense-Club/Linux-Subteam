@@ -9,11 +9,8 @@
 
 - name: remove any crons found
   ansible.builtin.shell: |
-    mkdir {{ quarantine_path }}/crons
-    for c in $(ls /var/spool/cron)
+    for c in $(/bin/ls /var/spool/cron)
     do
         mv /var/spool/${c}  {{ quarantine_path }}/crons/
-        [[ -f /var/spool/${c} ]] && rm -f /var/spool/${c}
     done
-  args:
-    executable: /bin/bash
+
