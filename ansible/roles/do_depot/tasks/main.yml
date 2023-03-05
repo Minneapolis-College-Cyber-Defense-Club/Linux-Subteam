@@ -1,5 +1,4 @@
 ---
----
 - name: make_depot
   ansible.builtin.import_tasks:
     file: make_depot.yml
