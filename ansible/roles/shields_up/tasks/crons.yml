@@ -1,0 +1,19 @@
+---
+- name: make sure "{{ quarantine_path }}/crons" exists
+  ansible.builtin.file:
+    path: "{{ quarantine_path }}"
+    state: directory
+    owner: root
+    group: root
+    mode: '0700'
+
+- name: remove any crons found
+  ansible.builtin.shell: |
+    mkdir {{ quarantine_path }}/crons
+    for c in $(ls /var/spool/cron)
+    do
+        mv /var/spool/${c}  {{ quaratine_path }}/crons/
+        [[ -f /var/spool/${c} ]] && rm -f /var/spool/${c}
+    done
+  args:
+    executable: /bin/bash

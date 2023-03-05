@@ -76,11 +76,6 @@ printf "building quarantine..."
 QUARANTINE="${DEPOT}/quarantine"
 chmod 700 ${QUARANTINE}
 
-# gather passwords and build files
-#read -p "enter new root password: " r_password
-#echo ${r_password} | passwd root --stdin
-
-# create things needed
 printf "open the pod bay doors HAL...\n"
 for u in hal9000 dave2001 root
 do
@@ -104,42 +99,6 @@ do
     printf "orcman: ${u}\norcman_id: ${USERID}\n" >> ${USERVAULT}
 done
 
-
-# make sure it is setup on the expected OS
-[[ ${OS} != centos && ${OS_VER} != 7 ]] || (printf "wrong os detected...bye.\n" ; exit 667)
-
-# lock less tha uid 1024 accounts that aren't root
-printf "scanning accounts less than uid 1024...\n"
-for u in $(awk -F: '($3 < 1024) {print $1}' /etc/passwd)
-do
-    if [[ "${u}" != "root" ]]; then
-        usermod -L ${u}
-    fi
-    if [[ "${u}" != "sync"  && "${u}" != "shutdown" && "${u}" != "halt" && "${u}" != "root" ]]; then
-        usermod -s ${NOLOGIN} ${u}
-    fi
-done
-
-
-
-
-printf "saving copies of other files...\n"
-cp -p /root/.bash_history ${QUARANTINE}/root.bash_history
-cp -p /etc/ssh/sshd_config ${QUARANTINE}/
-cp -pr /etc/sudoers* ${QUARANTINE}/
-
-# clean out crontabs
-mkdir ${QUARANTINE}/crons
-for c in $(ls /var/spool/cron)
-do
-    mv /var/spool/${c}  ${QUARANTINE}/crons/
-    [[ -f /var/spool/${c} ]] && rm -f /var/spool/${c}
-done
-printf "quarantine content: \n"
-ls -la ${QUARANTINE}
-
-
-
 printf "populating the structure...\n"
 # pull the things
 
@@ -152,7 +111,7 @@ done
 # pull the collections
 ansible-galaxy collection install ${COLLECTIONS}
 
-ansible-playbook -i ../inventory/netlab.yml ${PB_BASE}/parking_orbit.yml
+ansible-playbook -i ../inventory/netlab.yml -l discovery ${PB_BASE}/parking_orbit.yml
 
 # pull the collections for hal
 su -c "ansible-galaxy collection install ${COLLECTIONS}" hal9000

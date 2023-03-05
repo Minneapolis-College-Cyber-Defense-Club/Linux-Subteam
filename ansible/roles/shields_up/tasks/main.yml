@@ -5,3 +5,19 @@
 #        - suss_users
 #        - file_archive
 #        - crons
+#- name: fix /etc/hosts file
+
+#- name: fix /etc/resolv.conf
+
+- name: check for suspect users and lock
+  ansible.builtin.include_tasks:
+    name: suss_users.yml
+  when: battle_station is "suss_users"
+- name: quarantine interesting files
+  ansible.builtin.include_tasks:
+    name: file_archive.yml
+  when: battle_station is "file_archive"
+- name: check for, quarantine and remove suspect crons
+  ansible.builtin.inlcude_tasks:
+    name: crons.yml
+  when: battle_station is "crons"
