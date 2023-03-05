@@ -8,16 +8,16 @@
 #- name: fix /etc/hosts file
 #- name: fix /etc/resolv.conf
 - name: check for suspect users and lock
-  ansible.builtin.include_tasks:
+  ansible.builtin.import_tasks:
     file: suss_users.yml
   when: battle_station == "suss_users"
 
 - name: quarantine interesting files
-  ansible.builtin.include_tasks:
+  ansible.builtin.import_tasks:
     file: file_archive.yml
   when: battle_station == "file_archive"
 
 - name: check for, quarantine and remove suspect crons
-  ansible.builtin.inlcude_tasks:
+  ansible.builtin.import_tasks:
     file: crons.yml
   when: battle_station == "crons"
