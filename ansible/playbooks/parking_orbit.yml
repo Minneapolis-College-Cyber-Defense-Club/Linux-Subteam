@@ -7,14 +7,14 @@
       ansible.builtin.include_role:
         name: user_setup
       vars:
-        orcman: "root"
+        orcman: "hal9000"
         add_key: true
 
     - name: user_setup
       ansible.builtin.include_role:
         name: user_setup
       vars:
-        orcman: "hal9000"
+        orcman: "root"
         add_key: true
 
     - name: do_sudo

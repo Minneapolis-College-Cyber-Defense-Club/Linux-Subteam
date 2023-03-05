@@ -24,3 +24,4 @@
 - name: add authorized key
   ansible.builtin.import_tasks:
     file: add_key.yml
+  when: add_key is defined
