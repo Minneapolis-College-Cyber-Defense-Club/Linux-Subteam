@@ -62,4 +62,6 @@
       ansible.builtin.include_role:
         name: make_banner
 
-
+    - name: fix_sshd
+      ansible.builtin.include_roles:
+        name: fix_sshd
