@@ -54,14 +54,6 @@ yum install -y epel-release libselinux-python
 [[ -x /bin/wget ]] || yum install -y wget
 [[ -x /bin/git ]] || yum install -y git
 
-###
-## hand-off 
-###
-
-# change passwords / add users
-# create depot
-# 
-
 # create the depot
 printf "generating depot structure..."
 for d in vault keys files quarantine
