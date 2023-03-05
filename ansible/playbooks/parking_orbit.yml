@@ -1,8 +1,7 @@
 ---
 - name: wake the crew
   gather_facts: true
-  hosts: localhost
-  connection: local
+  hosts: discovery
   tasks:
     - name: user_setup
       ansible.builtin.include_role:
@@ -10,25 +9,36 @@
       vars:
         orcman: "hal9000"
         add_key: true
-        store_key: true
+
     - name: do_sudo
       ansible.builtin.include_role:
         name: do_sudo 
       vars:
         orcman: "hal9000"
+
     - name: user_setup
       ansible.builtin.include_role:
         name: user_setup
       vars:
         orcman: "dave2001"
         add_key: true
+
     - name: do_sudo
       ansible.builtin.include_role:
         name: do_sudo 
       vars:
         orcman: "dave2001"
+
+    - name: shields up
+      ansible.builtin.include_role:
+        name: quarantine
+
     - name: depot_fix
       ansible.builtin.include_role:
         name: depot_fix
+        
+    - name: make_banner
+      ansible.builtin.include_role:
+        name: make_banner
 
 
