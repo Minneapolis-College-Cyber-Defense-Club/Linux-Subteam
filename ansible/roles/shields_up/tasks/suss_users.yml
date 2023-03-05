@@ -11,3 +11,5 @@
             usermod -s ${NOLOGIN} ${u}
         fi
     done
+  args: 
+    executable: /bin/bash
