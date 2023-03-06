@@ -9,7 +9,7 @@
       Match User "{{ orcman }}"
         PubkeyAuthentication yes
         PasswordAuthentication yes
-    when: orcman != "root"
+  when: orcman != "root"
 
 - name: add context for root
   ansible.builtin.blockinfile:
@@ -22,7 +22,7 @@
         PubkeyAuthentication yes
         PasswordAuthentication no
         PermitRootLogin prohibit-password
-    when: orcman == "root"
+  when: orcman == "root"
 
 
     
