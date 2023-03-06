@@ -1,0 +1,27 @@
+---
+mothership:
+  hosts:
+    discovery: 
+      ansible_host: 127.0.0.1 
+      ansible_connection: local 
+      ansible_user: root
+  vars:
+    depot_path: /depot
+    quarantine_path: /depot/quarantine
+    lvault_path: /depot/vault
+    lkeys_path: /depot/keys
+
+EL:
+  hosts:
+    splunk:
+      ansbile_host: 192.168.142.7
+    ecommerce:
+      ansible_host: 192.168.142.6
+    webmail:
+      ansible_hosts: 192.168.142.5
+
+DEB:
+  hosts:
+    ubuntu14:
+      ansible_host: 192.168.142.12
+    

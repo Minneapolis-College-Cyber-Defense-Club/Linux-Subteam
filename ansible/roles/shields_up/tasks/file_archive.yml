@@ -1,0 +1,3 @@
+---
+- name: grab a copy of root's .bash_history
+  ansible.builtin.command: "/bin/cp -p /root/.bash_history {{ quarantine_path }}/root.bash_history"

@@ -1,0 +1,23 @@
+---
+- include_vars: "../vars/sshd_vars.yml"
+
+- name: configure sshd
+  ansible.builtin.import_tasks:
+    file: configure.yml
+
+- name: add allowed
+  vars:
+    orcman: dave2001
+  ansible.builtin.import_tasks:
+    file: match_user.yml
+
+- name: add allowed
+  vars:
+    orcman: root
+  ansible.builtin.import_tasks:
+    file: match_user.yml
+
+- name: restart sshd
+  ansible.builtin.service:
+    name: sshd
+    state: restarted

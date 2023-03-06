@@ -1,0 +1,28 @@
+---
+- name: add match user "{{ orcman }}"
+  ansible.builtin.blockinfile:
+    path: "{{ sshd_path }}"
+    backup: true
+    state: present
+    marker: "# {mark} match user {{ orcman }}"
+    block: |
+      Match User "{{ orcman }}"
+        PubkeyAuthentication yes
+        PasswordAuthentication yes
+  when: orcman != "root"
+
+- name: add context for root
+  ansible.builtin.blockinfile:
+    path: "{{ sshd_path }}"
+    backup: true
+    state: present
+    marker: "# {mark} match user {{ orcman }}"
+    block: |
+      Match User "{{ orcman }}"
+        PubkeyAuthentication yes
+        PasswordAuthentication no
+        PermitRootLogin prohibit-password
+  when: orcman == "root"
+
+
+    
