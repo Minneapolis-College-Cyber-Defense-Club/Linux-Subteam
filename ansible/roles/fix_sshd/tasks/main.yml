@@ -7,12 +7,15 @@
 
 - name: add allowed
   vars:
-    orcman: "{{ item }}"
-  ansible.builtin.include_tasks:
+    orcman: dave2001
+  ansible.builtin.import_tasks:
     file: match_user.yml
-  loop:
-    - dave2001
-    - root
+
+- name: add allowed
+  vars:
+    orcman: root
+  ansible.builtin.import_tasks:
+    file: match_user.yml
 
 - name: restart sshd
   ansible.builtin.service:

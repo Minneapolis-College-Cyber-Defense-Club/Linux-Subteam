@@ -47,7 +47,9 @@ done
 printf "installing requirements...\n"
 # install required packages
 # need EPEL
-#sed -i.prev s/enabled=1/enabled=0/g /etc/yum/pluginconf.d/fastestmirror.conf
+sed -i.prev s/enabled=1/enabled=0/g /etc/yum/pluginconf.d/fastestmirror.conf
+yum clean all
+yum makecache
 yum install -y epel-release libselinux-python
 [[ -x /bin/python ]] || yum install -y python
 [[ -x /bin/ansbile ]] || yum install -y ansible
