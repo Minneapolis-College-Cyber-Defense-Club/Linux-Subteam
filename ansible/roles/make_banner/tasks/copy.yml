@@ -1,12 +1,4 @@
 ---
-- name: banner - copy new /etc/banner
-  ansible.builtin.copy:
-    src: ../files/banner
-    dest: /etc/banner
-    owner: root
-    group: root
-    mode: '0644'
-
 - name: populate /etc/banner
   ansible.builtin.blockinfile:
     path: /etc/banner
