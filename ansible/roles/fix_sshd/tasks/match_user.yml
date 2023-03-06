@@ -3,9 +3,6 @@
   ansible.builtin.blockinfile:
     path: "{{ sshd_path }}"
     backup: true
-    owner: root
-    group: root
-    mode: 0644
     state: present
     marker: "# {mark} match user {{ orcman }}"
     block: |
@@ -18,9 +15,6 @@
   ansible.builtin.blockinfile:
     path: "{{ sshd_path }}"
     backup: true
-    owner: root
-    group: root
-    mode: 0644
     state: present
     marker: "# {mark} match user {{ orcman }}"
     block: |
