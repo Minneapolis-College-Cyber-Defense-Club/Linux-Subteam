@@ -1,0 +1,55 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+
+  - name: remove telnet and ftp
+    ansible.builtin.package:
+      name: 
+        - telnet
+        - ftp
+        - ftpd
+        - tftp
+    state: absent
+
+  - name: Network hardening adjustment in /etc/sysctl.conf (debian and ubuntu)
+    ansible.builtin.template:
+      src: ubuntu_sysctl.conf.j2
+      dest: /etc/sysctl.conf
+    when: ansible_distribution in ["Debian", "Ubuntu"]
+
+  - name: Network hardening adjustment in /etc/sysctl.conf (centOS and fedora)
+    ansible.builtin.template:
+      src: el_sysctl.conf.j2       
+      dest: /etc/sysctl.conf
+    when: ansible_distribution in ["CentOS", "Fedora"]
+
+  - name: reload sysctl
+    ansible.builtin.command: sysctl --system
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  # - name: Configure rkhunter.conf
+#     ansible.builtin.template:
+#       src: rkhunter.conf.j2        # NEED TO UPLOAD EDITED CONFIG FILE - SET UP NOTIFICATIONS HERE
+#       dest: /etc/rkhunter.conf
