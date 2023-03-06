@@ -35,5 +35,3 @@
     - { key: "Banner", value: "{{ ssh_opt_Banner }}" }
     - { key: "DenyUsers", value: "{{ ssh_opt_DenyUsers }}" }
     - { key: "UsePAM", value: "{{ ssh_opt_UsePAM }}"}
-  notify:
-    - restart sshd
