@@ -16,7 +16,7 @@
     state: present
   loop:
     - { key: "PermitRootLogin", value: "{{ ssh_opt_PermitRootLogin }}" }
-    - { key: "PermitEmptyPassword", value: "{{ ssh_opt_PermitEmptyPasswords }}" }
+    - { key: "PermitEmptyPasswords", value: "{{ ssh_opt_PermitEmptyPasswords }}" }
     - { key: "KerberosAuthentication", value: "{{ ssh_opt_KerberosAuthentication }}" }
     - { key: "GSSAPIAuthentication", value: "{{ ssh_opt_GSSAPIAuthentication }}" }
     - { key: "X11Forwarding", value: "{{ ssh_opt_X11Forwarding }}" }
@@ -31,7 +31,7 @@
     - { key: "TCPKeepAlive", value: "{{ ssh_opt_TCPKeepAlive }}" }
     - { key: "UseDNS", value: "{{ ssh_opt_UseDNS }}" }
     - { key: "LogLevel", value: "{{ ssh_opt_LogLevel }}" }
-    - { key: "ClientMaxAliveCount", value: "{{ ssh_opt_ClientMaxAliveCount }}" }
+    - { key: "ClientAliveCountMax", value: "{{ ssh_opt_ClientAliveCountMax }}" }
     - { key: "Banner", value: "{{ ssh_opt_Banner }}" }
     - { key: "DenyUsers", value: "{{ ssh_opt_DenyUsers }}" }
     - { key: "UsePAM", value: "{{ ssh_opt_UsePAM }}"}
