@@ -11,7 +11,7 @@
 - name: add allowed
   vars:
     orcman: "{{ item }}"
-  ansible.builtin.import_tasks:
+  ansible.builtin.include_tasks:
     file: match_user.yml
   loop:
     - dave2001
