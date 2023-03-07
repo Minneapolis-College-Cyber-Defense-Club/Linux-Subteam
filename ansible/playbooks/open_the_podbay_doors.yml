@@ -1,27 +1,14 @@
 ---
-- name: wake the crew
+- name: open the pod bay doors Hal
   gather_facts: true
-  hosts: discovery
+  hosts: all
   tasks:
-    - name: user_setup
-      ansible.builtin.include_role:
-        name: user_setup
-      vars:
-        orcman: "hal9000"
-        add_key: true
-
     - name: user_setup
       ansible.builtin.include_role:
         name: user_setup
       vars:
         orcman: "root"
         add_key: true
-
-    - name: do_sudo
-      ansible.builtin.include_role:
-        name: do_sudo 
-      vars:
-        orcman: "hal9000"
 
     - name: user_setup
       ansible.builtin.include_role:
@@ -57,7 +44,7 @@
         name: do_depot
       vars:
         do_chown: true
-        orcman: hal9000
+        orcman: dave2001
 
     - name: make_banner
       ansible.builtin.include_role:

@@ -4,7 +4,7 @@
     path: /depot
     state: directory
     recurse: yes
-    owner: hal9000
-    group: hal9000
+    owner: "{{ orcman }}"
+    group: "{{ orcman }}"
     mode: "0700"
 

@@ -1,0 +1,3 @@
+safe_dns_server: 1.1.1.1
+depot_path: /depot
+quarantine_path: /depot/quarantine

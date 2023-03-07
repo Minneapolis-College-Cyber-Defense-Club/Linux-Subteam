@@ -1,4 +1,8 @@
 ---
+firewalls:
+  hosts:
+    paloalto:
+      ansible_host: 
 mothership:
   hosts:
     discovery: 
@@ -14,14 +18,19 @@ mothership:
 EL:
   hosts:
     splunk:
-      ansbile_host: 192.168.142.7
+      ansbile_host: 192.168.142.7   # CHANGE
     ecommerce:
-      ansible_host: 192.168.142.6
+      ansible_host: 192.168.142.6   # CHANGE
     webmail:
-      ansible_hosts: 192.168.142.5
+      ansible_hosts: 192.168.142.5  # CHANGE
+  vars:
+    initial_user: root
+    initial_pass: changeme
+    
 
 DEB:
   hosts:
-    ubuntu14:
-      ansible_host: 192.168.142.12
+    apache:
+      ansible_host: 192.168.142.12  # CHANGE
+  vars:
     
