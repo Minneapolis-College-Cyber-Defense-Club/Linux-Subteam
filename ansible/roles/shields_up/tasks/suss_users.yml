@@ -7,7 +7,7 @@
             usermod -L ${u}
         fi
         if [[ "${u}" != "root" && $(awk -F: '{print $3}') == "0" ]]; then
-          touch {{ quarantine_path }}/non_uid0_user_${u}
+          touch "{{ quarantine_path }}/non_uid0_user_${u}"
         fi
         case ${u} in
           root|sync|shutdown|halt|sysadmin) skip=y ;;

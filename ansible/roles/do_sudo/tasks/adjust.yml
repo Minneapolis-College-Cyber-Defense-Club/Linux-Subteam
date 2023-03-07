@@ -3,7 +3,7 @@
   ansible.builtin.replace:
     path: "/etc/sudoers"
     backup: true
-    regexp: '^(.+)$'
+    regexp: '^(!#.+)$'  # match only if not commented out
     replace: '# \1'
 
 - name: put settings in place
@@ -11,6 +11,7 @@
     path: "/etc/sudoers"
     backup: true
     state: present
+    insertbefore: "BOF"
     marker: "# {mark} CCDC sudoers"
     block: |
       ## generated sudoers
