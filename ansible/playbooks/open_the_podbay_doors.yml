@@ -53,3 +53,11 @@
     - name: fix_sshd
       ansible.builtin.include_role:
         name: fix_sshd
+    
+    - name: clean up non-standard admin account (if present)
+      ansible.builtin.user:
+        name: "{{ non_root_admin }}"
+        password_lock: true
+        shell: /usr/sbin/nologin
+      when: non_root_admin is defined
+
