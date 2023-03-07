@@ -60,7 +60,7 @@
       gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
       enabled=0
       metadata_expire=never
-    when: ansible_facts["distribution"] == "CentOS" and ansible_facts["major_version"] == "6"
+  when: ansible_facts["distribution"] == "CentOS" and ansible_facts["major_version"] == "6"
 
 - name:  debian8 fixed repos
   ansible.builtin.blockinfile:
@@ -73,5 +73,17 @@
     state: present
     marker: "# {mark} fixed repository {{ distribution_version }}"
     block: |
-      INSERT FIXED sources.list TEXT HERE
-    when: ansible_facts["distribution"] == "Debian" and ansible_facts["distribution_version"] == "8"
+      deb http://deb.debian.org/debian/ jessie main
+      deb http://security.debian.org/ jessie/updates main
+  when: ansible_facts["distribution"] == "Debian" and ansible_facts["distribution_version"] == "8"
+
+- name:  debian8 fixed security certificates
+  ansible.builtin.lineinfile:
+    path: "/etc/apt/apt.conf"
+    create: true
+    owner: root
+    group: root
+    mode: '0440'
+    line: "Acquire::Check-Valid-Until false;"
+    state: present
+  when: ansible_facts["distribution"] == "Debian" and ansible_facts["distribution_version"] == "8"
