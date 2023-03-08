@@ -10,7 +10,7 @@
 - name: check for suspect users and lock
   ansible.builtin.import_tasks:
     file: suss_users.yml
-  when: battle_station == "suss_users"
+  when: battle_station == "suss_users" and iscentos6 is undefined
 
 - name: quarantine interesting files
   ansible.builtin.import_tasks:
