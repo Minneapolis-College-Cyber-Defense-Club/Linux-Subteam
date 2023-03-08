@@ -13,7 +13,7 @@
     - name: fix repos CentOS6 (if appropriate)
       ansible.builtin.include_role:
         name: fix_repos
-      when: hostvars[inventory_hostname].ansible_distribution == "CentOS" and hostvars[inventory_name].ansible_distribution_major_version == "6"
+      when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "6"
 
     # - name: fix repos Debian (if appropriate)
     #   ansible.builtin.include_role:
