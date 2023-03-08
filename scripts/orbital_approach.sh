@@ -8,7 +8,7 @@ IP="127.0.0.1"
 DEPOT="/depot"
 OS="$(grep '^ID=' /etc/os-release | awk -F\" '{print $2}')"
 OS_VER="$(grep '^VERISON_ID=' /etc/os-release | awk -F\" '{print $2}')"
-GITHOLE="https://github.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam.git"
+#GITHOLE="https://github.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam.git"
 URL_BASE="https://raw.githubusercontent.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam/main"
 SCR_BASE="${DEPOT}/scripts"
 PB_BASE="${DEPOT}/ansible/playbooks"
@@ -96,7 +96,7 @@ done
 
 printf "populating the structure...\n"
 # pull the things
-
+read -p "Enter URL to repo: " GITHOLE
 git clone ${GITHOLE}
 for t in ansible scripts
 do
