@@ -99,7 +99,7 @@ printf "populating the structure...\n"
 loopit="true"
 while [[ "${loopit}" = "true" ]]
 do
-read -p "At competition? y/n " reponse
+read -p "At competition? y/n " response
 case ${response} in
     y) GITHOLE="https://github.com/Minneapolis-College-Cyber-Defense-Club/ccdc.git" 
         loopit="false";;
