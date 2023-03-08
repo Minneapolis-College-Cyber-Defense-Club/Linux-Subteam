@@ -3,7 +3,7 @@
   ansible.builtin.replace:
     path: "{{ repo_path }}"
     backup: true
-    regexp: '^(.+)$'
+    regexp: '^(!#.+)$'  # match only if not commented out
     replace: '# \1'
 
 - name: centos6 fixed repos
