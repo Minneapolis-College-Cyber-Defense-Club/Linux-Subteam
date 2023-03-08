@@ -106,7 +106,7 @@ done
 # pull the collections
 ansible-galaxy collection install ${COLLECTIONS}
 
-ansible-playbook -i ${DEPOT}/ansible/inventory/netlab.yml -l discovery ${PB_BASE}/parking_orbit.yml
+ansible-playbook -i ${DEPOT}/ansible/netlab -l discovery ${PB_BASE}/parking_orbit.yml
 
 # pull the collections for hal
 su -c "ansible-galaxy collection install ${COLLECTIONS}" hal9000
