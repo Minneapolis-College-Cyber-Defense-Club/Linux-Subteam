@@ -97,13 +97,13 @@ done
 printf "populating the structure...\n"
 # pull the things
 loopit="true"
-while [ "${loopit}" != "false" ]
+while [[ "${loopit}" = "true" ]]
 do
 read -p "At competition? y/n " reponse
 case ${response} in
-    y|Y|yes|YES|Yes) GITHOLE="https://github.com/Minneapolis-College-Cyber-Defense-Club/ccdc.git" 
+    y) GITHOLE="https://github.com/Minneapolis-College-Cyber-Defense-Club/ccdc.git" 
         loopit="false";;
-    n|N|no|No|NO) GITHOLE="https://github.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam.git"
+    n) GITHOLE="https://github.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam.git"
         loopit="false" ;;
     *) printf "please enter 'y' or 'n' \n" ;;
 esac
