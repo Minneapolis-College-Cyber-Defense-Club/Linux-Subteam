@@ -5,12 +5,11 @@
 #        - suss_users
 #        - file_archive
 #        - crons
-#- name: fix /etc/hosts file
-#- name: fix /etc/resolv.conf
-# - name: check for suspect users and lock
-#   ansible.builtin.import_tasks:
-#     file: suss_users.yml
-#   when: battle_station == "suss_users" and iscentos6 is undefined
+
+- name: check for suspect users and lock
+  ansible.builtin.import_tasks:
+    file: suss_users.yml
+  when: battle_station == "suss_users" and iscentos6 is undefined
 
 - name: quarantine interesting files
   ansible.builtin.import_tasks:
