@@ -84,7 +84,7 @@
     
     - name: clean up non-standard admin account (if present)
       ansible.builtin.user:
-        name: "{{ non_root_admin }}"
+        name: "{{ initial_user }}"
         password_lock: true
         shell: /usr/sbin/nologin
       when: non_root_admin is defined
