@@ -52,3 +52,6 @@
     - imap
     - imaps
   when: inc_webmail_ports is defined
+
+- name: restart firewalld
+  ansible.builtin.command: /bin/firewall-cmd --reload
