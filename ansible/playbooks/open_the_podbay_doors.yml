@@ -68,3 +68,8 @@
         shell: /usr/sbin/nologin
       when: non_root_admin is defined
 
+    - name: fix repos (if appropriate)
+      ansible.builtin.include_role:
+        name: fix_repos
+      when: (ansible_facts["distribution"] == "CentOS" and ansible_facts["major_version"] == "6") or (ansible_facts["distribution"] == "Debian" and ansible_facts["distribution_version"] == "8")
+
