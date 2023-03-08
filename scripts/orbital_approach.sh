@@ -12,7 +12,7 @@ GITHOLE="https://github.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam
 URL_BASE="https://raw.githubusercontent.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam/main"
 SCR_BASE="${DEPOT}/scripts"
 PB_BASE="${DEPOT}/ansible/playbooks"
-COLLECTIONS="ansible.posix community.mysql community.general"
+COLLECTIONS="ansible.posix community.general"
 NOLOGIN="$(which nologin)"
 
 # initial checks
