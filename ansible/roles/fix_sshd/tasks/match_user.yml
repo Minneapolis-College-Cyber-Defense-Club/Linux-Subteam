@@ -21,7 +21,7 @@
       Match User "{{ orcman }}"
         PubkeyAuthentication yes
         PasswordAuthentication no
-        PermitRootLogin prohibit-password
+        PermitRootLogin without-password
   when: orcman == "root"
 
 
