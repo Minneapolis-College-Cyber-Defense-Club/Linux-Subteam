@@ -9,6 +9,7 @@ mothership:
       ansible_host: 127.0.0.1 
       ansible_connection: local 
       ansible_user: root
+      inc_web_ports: true
 
 CentOS7:
   hosts:
