@@ -1,0 +1,5 @@
+---
+- name: install ufw for ubuntu and debian
+  ansible.builtin.package:
+    name: ufw
+    state: present

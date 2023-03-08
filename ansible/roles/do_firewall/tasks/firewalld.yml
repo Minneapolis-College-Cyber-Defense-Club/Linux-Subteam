@@ -1,0 +1,50 @@
+---
+- name: install firewalld for centos7 and fedora
+  ansible.builtin.package:
+    name: firewalld
+    state: present
+
+- name: ensure firewalld is started
+  ansible.builtin.service:
+    name: firewalld
+    state: started
+    enabled: yes
+
+- name: change the default zone
+  ansible.builtin.command: /bin/firewall-cmd --set-default-zone=public 
+
+- name: remove dhcpv6-client
+  ansible.posix.firewalld: 
+    service: dhcpv6-client
+    permanent: true
+    state: disabled
+
+- name: allow port 22 (ssh) 
+  ansible.posix.firewalld:
+    service: ssh 
+    permanent: true
+    state: enabled
+
+# custom services
+- name: add web ports
+  ansible.posix.firewalld:
+    service: "{{ item }}"
+    permanent: true
+    state: enabled
+  loop:
+    - http
+    - https
+  when: inc_web_ports is true
+
+- name: add webmail ports
+  ansible.posix.firewalld:
+    service: "{{ item }}"
+    permanent: true
+    state: enabled
+  loop:
+    - smtp
+    - pop3
+    - pop3s
+    - imap
+    - imaps
+  when: inc_webmail_ports is true

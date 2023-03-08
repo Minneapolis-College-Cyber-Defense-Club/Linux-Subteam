@@ -11,30 +11,44 @@ mothership:
       ansible_user: root
   vars:
 
-EL7:
+CentOS7:
   hosts:
     192.168.142.6:
-      ansible_host: ecomm  
+      ansible_host: ecomm 
+      inc_web_ports: true 
     192.168.142.5:
-      ansible_hosts: webmail 
+      ansible_hosts: webmail
+      inc_webmail_ports: true 
   vars:
     initial_user: root
     initial_password: changeme
     isfirewalld: true
 
-EL6:
+CentOS6:
   hosts:
     192.168.142.7:
       ansbile_host: splunk
+      inc_splunk_ports: true
   vars:
     isiptables: true
 
-DEB:
+Ubuntu:
   hosts:
     192.168.142.12:
-      ansible_host: web 
+      ansible_host: web
+      inc_web_ports: true
+  vars:
+    initial_user: sysadmin
+    initial_password: changeme
+    non_root_admin: true
+    isufw: true
+
+Debian8:
+  hosts:
     192.168.142.23:
-      ansible_hosts: dns-ntp
+      ansible_host: dns-ntp
+      inc_ntp_ports: true
+      inc_dns_ports: true
   vars:
     initial_user: sysadmin
     initial_password: changeme
