@@ -13,12 +13,7 @@
     - name: fix repos CentOS6 (if appropriate)
       ansible.builtin.include_role:
         name: fix_repos
-      when: ansible_distribution == "CentOS" and ansible_distribution_major_version | int == 6
-
-    - name: fix repos Debian (if appropriate)
-      ansible.builtin.include_role:
-        name: fix_repos
-      when: ansible_distribution == "Debian" and ansible_distribution_major_version | int == 8
+      when: iscentos6 is defined or isdebian8 is defined
 
     - name: shields up
       ansible.builtin.include_role:
@@ -37,7 +32,7 @@
       ansible.builtin.package:
         name: libselinux-python
         state: present
-      when: ansible_distribution == "CentOS" and ansible_distribution_major_version | int == 6
+      when: iscentos6 is defined
 
     - name: user_setup
       ansible.builtin.include_role:
@@ -71,8 +66,6 @@
       vars:
         make_depot: true
       when: depot_exists.stat.isdir is undefined
-
-
 
     - name: do_depot
       ansible.builtin.include_role:

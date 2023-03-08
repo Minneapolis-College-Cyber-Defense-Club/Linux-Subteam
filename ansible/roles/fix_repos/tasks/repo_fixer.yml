@@ -60,7 +60,7 @@
       gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
       enabled=0
       metadata_expire=never
-  when: ansible_distribution == "CentOS" and ansible_distribution_major_version | int == 6
+  when: iscentos6 is defined
 
 - name:  debian8 fixed repos
   ansible.builtin.blockinfile:
@@ -75,7 +75,7 @@
     block: |
       deb http://deb.debian.org/debian/ jessie main
       deb http://security.debian.org/ jessie/updates main
-  when: ansible_distribution == "Debian" and ansible_distribution_major_version | int == 8
+  when: isdebian8 is defined
 
 - name:  debian8 fixed security certificates
   ansible.builtin.lineinfile:
@@ -86,4 +86,4 @@
     mode: '0440'
     line: "Acquire::Check-Valid-Until false;"
     state: present
-  when: ansible_distribution == "Debian" and ansible_distribution_major_version | int == 8
+  when: isdebian8 is defined
