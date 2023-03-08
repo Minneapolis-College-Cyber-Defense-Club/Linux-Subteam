@@ -15,10 +15,10 @@ webmail
 splunk
 [web]
 web
-[dns-ntp]
+[bind-ntp]
 dns-ntp
 
-[EL]
+[EL7-Fedora]
 ecomm
 webmail
 [EL6]
