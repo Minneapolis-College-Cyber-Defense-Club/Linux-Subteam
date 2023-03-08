@@ -15,12 +15,14 @@
 
 - name: remove dhcpv6-client
   ansible.posix.firewalld: 
+    zone: public
     service: dhcpv6-client
     permanent: true
     state: disabled
 
 - name: allow port 22 (ssh) 
   ansible.posix.firewalld:
+    zone: public
     service: ssh 
     permanent: true
     state: enabled
@@ -28,6 +30,7 @@
 # custom services
 - name: add web ports
   ansible.posix.firewalld:
+    zone: public
     service: "{{ item }}"
     permanent: true
     state: enabled
@@ -38,6 +41,7 @@
 
 - name: add webmail ports
   ansible.posix.firewalld:
+    zone: public
     service: "{{ item }}"
     permanent: true
     state: enabled
