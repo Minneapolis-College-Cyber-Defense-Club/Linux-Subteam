@@ -36,7 +36,7 @@ case $? in
 esac
 printf "checking /etc/hosts...\n"
 mv /etc/hosts /etc/hosts.orig
-printf "127.0.0.1 localhost localhost.localdomain\n::1 localhost localhost.localdomain\n">/etc/hosts
+printf "\n">/etc/hosts
 # in case there is more than 1 interface
 for i in $(ifconfig | cut -f1 -d: | grep '^[a-z]' | grep -v lo)
 do
@@ -105,8 +105,6 @@ do
     cp -r ${REPOLOC}/${t} ${DEPOT}/
 done
 
-echo "ssh_args = -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" >> /etc/ansible/ansible.cfg
-
 # pull the collections
 ansible-galaxy collection install ${COLLECTIONS}
 
@@ -114,4 +112,5 @@ ansible-playbook -i ${DEPOT}/ansible/netlab -l discovery ${PB_BASE}/parking_orbi
 
 # pull the collections for hal
 su -c "ansible-galaxy collection install ${COLLECTIONS}" hal9000
+printf "Host \* \n  StrictHostKeyChecking no\n"> /home/hal9000/.ssh/config ; chown hal9000: /home/hal9000/.ssh/config
 
