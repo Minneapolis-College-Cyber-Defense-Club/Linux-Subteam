@@ -34,7 +34,7 @@
   loop:
     - http
     - https
-  when: inc_web_ports == "true"
+  when: inc_web_ports is defined
 
 - name: add webmail ports
   ansible.posix.firewalld:
@@ -47,4 +47,4 @@
     - pop3s
     - imap
     - imaps
-  when: inc_webmail_ports == "true"
+  when: inc_webmail_ports is defined
