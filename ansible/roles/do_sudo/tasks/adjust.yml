@@ -3,7 +3,7 @@
   ansible.builtin.replace:
     path: "/etc/sudoers"
     backup: true
-    regexp: '^(!#.+)$'  # match only if not commented out
+    regexp: '^((?!#).+)$'  # match only if not commented out
     replace: '# \1'
 
 - name: put settings in place

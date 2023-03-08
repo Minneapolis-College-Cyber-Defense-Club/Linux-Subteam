@@ -11,7 +11,8 @@
   lineinfile:
     path: "{{ sshd_path }}"
     backup: true
-    regex: "^(#)?{{item.key}}"
+    #regex: "^(#)?{{item.key}}"
+    regexp: '^((?!#).+)$'  # match only if not commented out
     line: "{{item.key}} {{item.value}}"
     state: present
   loop:

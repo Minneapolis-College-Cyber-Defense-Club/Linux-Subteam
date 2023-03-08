@@ -3,7 +3,7 @@
   ansible.builtin.replace:
     path: /etc/resolv.conf
     backup: true
-    regexp: '^(!#.+)$'  # match only if not commented out
+    regexp: '^((?!#).+)$'  # match only if not commented out
     replace: '# \1'
 - name: add "{{ safe_dns_server }}"
   ansible.builtin.lineinfile:
