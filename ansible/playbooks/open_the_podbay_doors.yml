@@ -1,34 +1,34 @@
 ---
 - name: open the pod bay doors Hal
   gather_facts: true
-  hosts: all
+  hosts: EL,DEB
   become: true
   become_method: su
   vars:
     ansible_user: "{{ initial_user }}"
     ansible_password: "{{ initial_password }}"
-    ansible_become_user: "root"
+    ansible_become_user: root
     ansible_become_password: "{{ initial_password }}"
   tasks:
     - name: user_setup
       ansible.builtin.include_role:
         name: user_setup
       vars:
-        orcman: "root"
+        orcman: root
         add_key: true
 
     - name: user_setup
       ansible.builtin.include_role:
         name: user_setup
       vars:
-        orcman: "dave2001"
+        orcman: dave2001
         add_key: true
 
     - name: do_sudo
       ansible.builtin.include_role:
         name: do_sudo 
       vars:
-        orcman: "dave2001"
+        orcman: dave2001
 
     - name: do_depot
       ansible.builtin.include_role:

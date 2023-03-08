@@ -1,11 +1,5 @@
 ---
-- name: check for var file
-  ansible.builtin.stat:
-    path: "/depot/vault/{{ orcman }}.yml"
-  register: varfile_state
-
 - include_vars: "/depot/vault/{{ orcman }}.yml"
-  when: varfile_state.stat.exists
 
 - name: groupadd
   ansible.builtin.import_tasks:
