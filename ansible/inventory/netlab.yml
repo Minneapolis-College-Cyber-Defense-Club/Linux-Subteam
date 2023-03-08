@@ -14,7 +14,7 @@ CentOS7:
     ecomm:
       ansible_host: 192.168.142.6
       inc_web_ports: true 
-    web-mail:
+    webmail:
       ansible_hosts: 192.168.142.5
       inc_webmail_ports: true 
   vars:
@@ -23,14 +23,14 @@ CentOS7:
     isfirewalld: true
 CentOS6:
   hosts:
-    splunker:
+    splunk:
       ansbile_host: 192.168.142.7
       inc_splunk_ports: true
   vars:
     isiptables: true
 Ubuntu:
   hosts:
-    www:
+    web:
       ansible_host: 192.168.142.12
       inc_web_ports: true
   vars:
