@@ -1,0 +1,12 @@
+---
+- name: adjust existing /etc/resolv.conf
+  ansible.builtin.replace:
+    path: /etc/resolv.conf
+    backup: true
+    regexp: '^(!#.+)$'  # match only if not commented out
+    replace: '# \1'
+- name: add "{{ safe_dns_server }}"
+  ansible.builtin.lineinfile:
+    path: /etc/resolv.conf
+    line: "nameserver {{ safe_dns_server }}"
+    state: present

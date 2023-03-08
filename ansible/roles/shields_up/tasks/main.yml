@@ -1,7 +1,7 @@
 ---
 # tasks file for quarantine
-#        - fix_hosts
-#        - fix_dns
+#        - hosts
+#        - dns
 #        - suss_users
 #        - file_archive
 #        - crons
@@ -21,3 +21,13 @@
   ansible.builtin.import_tasks:
     file: crons.yml
   when: battle_station == "crons"
+
+- name: fix /etc/resolv.conf
+  ansible.builtin.import_tasks:
+    file: dns.yml
+  when: battle_station == "dns"
+
+- name: fix /etc/hosts
+  ansible.builtin.import_tasks:
+    file: hosts.yml
+  when: battle_station == "hosts"
