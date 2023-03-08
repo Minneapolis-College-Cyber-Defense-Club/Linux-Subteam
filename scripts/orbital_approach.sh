@@ -98,10 +98,14 @@ printf "populating the structure...\n"
 # pull the things
 read -p "Enter URL to repo: " GITHOLE
 git clone ${GITHOLE}
+# find our repo
+REPOLOC="$(find ${HOME} -name Linux-Subteam -type d -print)"
 for t in ansible scripts
 do
-    cp -r ~/Linux-Subteam/${t} ${DEPOT}/
+    cp -r ${REPOLOC}/${t} ${DEPOT}/
 done
+
+echo "ssh_args = -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no" >> /etc/ansible/ansible.cfg
 
 # pull the collections
 ansible-galaxy collection install ${COLLECTIONS}
@@ -110,3 +114,4 @@ ansible-playbook -i ${DEPOT}/ansible/netlab -l discovery ${PB_BASE}/parking_orbi
 
 # pull the collections for hal
 su -c "ansible-galaxy collection install ${COLLECTIONS}" hal9000
+
