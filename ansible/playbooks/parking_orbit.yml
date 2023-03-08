@@ -51,7 +51,6 @@
       vars:
         battle_station: "{{ item }}"
       loop:
-        - suss_users
         - file_archive
         - crons
 

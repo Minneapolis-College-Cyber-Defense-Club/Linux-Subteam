@@ -18,11 +18,11 @@
   # args: 
   #   executable: /bin/bash
 
-- name: lock suspect users under uid 1024
-  ansible.builtin.getent:
-    database: passwd
+# - name: lock suspect users under uid 1024
+#   ansible.builtin.getent:
+#     database: passwd
 
-- name: lock users under uid 1024 unless special
-  ansible.builtin.command: "/usr/sbin/usermod -L {{ item }}"
-  when: gentent_passwd["{{ item }}"][1] | int < 1024 and (item != root or item != sync or item != shutdown  item != halt or item != syadmin)
-  with_items: "{{ gentent_passwd.keys() }}"
+# - name: lock users under uid 1024 unless special
+#   ansible.builtin.command: "/usr/sbin/usermod -L {{ item }}"
+#   when: gentent_passwd["{{ item }}"][1] | int < 1024 and (item != root or item != sync or item != shutdown  item != halt or item != syadmin)
+#   with_items: "{{ gentent_passwd.keys() }}"
