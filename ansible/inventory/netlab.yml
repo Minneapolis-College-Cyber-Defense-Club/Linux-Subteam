@@ -2,55 +2,58 @@
 # firewalls:
 #   hosts:
 #     paloalto:
-#       ansible_ssh_host: 
-mothership:
-  hosts:
-    discovery: 
-      ansible_host: 127.0.0.1 
-      ansible_connection: local 
-      ansible_user: root
-         
-CentOS7:
+#       ansible_ssh_host:
+all:
   hosts:
     ecomm:
       ansible_host: 192.168.142.6
-      inc_web_ports: true 
     webmail:
       ansible_hosts: 192.168.142.5
-      inc_webmail_ports: true 
-  vars:
-    initial_user: root
-    initial_password: changeme
-    isfirewalld: true
-
-CentOS6:
-  hosts:
     splunk:
       ansbile_host: 192.168.142.7
-      inc_splunk_ports: true
-  vars:
-    isiptables: true
-
-Ubuntu:
-  hosts:
     web:
       ansible_host: 192.168.142.12
-      inc_web_ports: true
-  vars:
-    initial_user: sysadmin
-    initial_password: changeme
-    non_root_admin: true
-    isufw: true
-
-Debian8:
-  hosts:
     dns-ntp:
       ansible_host: 192.168.142.23
-      inc_ntp_ports: true
-      inc_dns_ports: true
-  vars:
-    initial_user: sysadmin
-    initial_password: changeme
-    non_root_admin: true
-    isufw: true
-    
+  children:
+    mothership:
+      hosts:
+        discovery: 
+          ansible_host: 127.0.0.1 
+          ansible_connection: local 
+          ansible_user: root
+    CentOS7:
+      hosts:
+        ecomm:
+          inc_web_ports: true 
+        webmail:
+          inc_webmail_ports: true 
+      vars:
+        initial_user: root
+        initial_password: changeme
+        isfirewalld: true
+    CentOS6:
+      hosts:
+        splunk:
+          inc_splunk_ports: true
+      vars:
+        isiptables: true
+    Ubuntu:
+      hosts:
+        web:
+          inc_web_ports: true
+      vars:
+        initial_user: sysadmin
+        initial_password: changeme
+        non_root_admin: true
+        isufw: true
+    Debian8:
+      hosts:
+        dns-ntp:
+          inc_ntp_ports: true
+          inc_dns_ports: true
+      vars:
+        initial_user: sysadmin
+        initial_password: changeme
+        non_root_admin: true
+        isufw: true
