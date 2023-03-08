@@ -74,11 +74,11 @@
       ansible.builtin.include_role:
         name: do_firewall
 
-    - name: Add IP address of all hosts to all hosts
-      lineinfile:
-        dest: /etc/hosts
-        regexp: ".*\t{{ hostvars[item]['ansible_hostname']}}\t{{ hostvars[item]['ansible_hostname']}}"
-        line: "{{ hostvars[item]['ansible_env'].SSH_CONNECTION.split(' ')[2] }}\t{{ hostvars[item]['ansible_hostname']}}\t{{ hostvars[item]['ansible_hostname']}}"
-        state: present
-      when: ansible_hostname != "{{ item }}" or ansible_hostname == "{{ item }}"
-      with_items: "{{ groups['all'] }}"
+    # - name: Add IP address of all hosts to all hosts
+    #   lineinfile:
+    #     dest: /etc/hosts
+    #     regexp: ".*\t{{ hostvars[item]['ansible_hostname']}}\t{{ hostvars[item]['ansible_hostname']}}"
+    #     line: "{{ hostvars[item]['ansible_env'].SSH_CONNECTION.split(' ')[2] }}\t{{ hostvars[item]['ansible_hostname']}}\t{{ hostvars[item]['ansible_hostname']}}"
+    #     state: present
+    #   when: ansible_hostname != "{{ item }}" or ansible_hostname == "{{ item }}"
+    #   with_items: "{{ groups['all'] }}"
