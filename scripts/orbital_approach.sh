@@ -96,7 +96,18 @@ done
 
 printf "populating the structure...\n"
 # pull the things
-read -p "Enter URL to repo: " GITHOLE
+loopit="true"
+while [ "${loopit}" != "false" ]
+do
+read -p "At competition? y/n " reponse
+case ${response} in
+    y|Y|yes|YES|Yes) GITHOLE="https://github.com/Minneapolis-College-Cyber-Defense-Club/ccdc.git" 
+        loopit="false";;
+    n|N|no|No|NO) GITHOLE="https://github.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam.git"
+        loopit="false" ;;
+    *) printf "please enter 'y' or 'n' \n" ;;
+esac
+done 
 git clone ${GITHOLE}
 # find our repo
 REPOLOC="$(find ${HOME} -name Linux-Subteam -type d -print)"
