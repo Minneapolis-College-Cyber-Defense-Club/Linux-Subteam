@@ -3,57 +3,49 @@
 #   hosts:
 #     paloalto:
 #       ansible_ssh_host:
-all:
+mothership:
+  hosts:
+    discovery: 
+      ansible_host: 127.0.0.1 
+      ansible_connection: local 
+      ansible_user: root
+CentOS7:
   hosts:
     ecomm:
       ansible_host: 192.168.142.6
-    webmail:
+      inc_web_ports: true 
+    web-mail:
       ansible_hosts: 192.168.142.5
-    splunk:
+      inc_webmail_ports: true 
+  vars:
+    initial_user: root
+    initial_password: changeme
+    isfirewalld: true
+CentOS6:
+  hosts:
+    splunker:
       ansbile_host: 192.168.142.7
-    web:
+      inc_splunk_ports: true
+  vars:
+    isiptables: true
+Ubuntu:
+  hosts:
+    www:
       ansible_host: 192.168.142.12
+      inc_web_ports: true
+  vars:
+    initial_user: sysadmin
+    initial_password: changeme
+    non_root_admin: true
+    isufw: true
+Debian8:
+  hosts:
     dns-ntp:
       ansible_host: 192.168.142.23
-  children:
-    mothership:
-      hosts:
-        discovery: 
-          ansible_host: 127.0.0.1 
-          ansible_connection: local 
-          ansible_user: root
-    CentOS7:
-      hosts:
-        ecomm:
-          inc_web_ports: true 
-        webmail:
-          inc_webmail_ports: true 
-      vars:
-        initial_user: root
-        initial_password: changeme
-        isfirewalld: true
-    CentOS6:
-      hosts:
-        splunk:
-          inc_splunk_ports: true
-      vars:
-        isiptables: true
-    Ubuntu:
-      hosts:
-        web:
-          inc_web_ports: true
-      vars:
-        initial_user: sysadmin
-        initial_password: changeme
-        non_root_admin: true
-        isufw: true
-    Debian8:
-      hosts:
-        dns-ntp:
-          inc_ntp_ports: true
-          inc_dns_ports: true
-      vars:
-        initial_user: sysadmin
-        initial_password: changeme
-        non_root_admin: true
-        isufw: true
+      inc_ntp_ports: true
+      inc_dns_ports: true
+  vars:
+    initial_user: sysadmin
+    initial_password: changeme
+    non_root_admin: true
+    isufw: true
