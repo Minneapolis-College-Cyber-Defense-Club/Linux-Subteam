@@ -1,2 +1,15 @@
 ---
-# tasks file for do_firewall
+- name: setup firewalld
+  ansible.builtin.import_tasks:
+    file: firewalld.yml
+  when: isfirewalld == "true"
+
+- name: setup ufw
+  ansible.builtin.import_tasks:
+    file: ufw.yml
+  when: isufw == "true"
+
+- name: setup iptables
+  ansible.builtin.import_tasks:
+    file: iptables.yml
+  when: isiptables == "true"
