@@ -1,8 +1,8 @@
 ---
-firewalls:
-  hosts:
-    paloalto:
-      ansible_ssh_host: 
+# firewalls:
+#   hosts:
+#     paloalto:
+#       ansible_ssh_host: 
 mothership:
   hosts:
     discovery: 
@@ -13,11 +13,11 @@ mothership:
 
 CentOS7:
   hosts:
-    192.168.142.6:
-      ansible_host: ecomm 
+    ecomm:
+      ansible_host: 192.168.142.6
       inc_web_ports: true 
-    192.168.142.5:
-      ansible_hosts: webmail
+    webmail:
+      ansible_hosts: 192.168.142.5
       inc_webmail_ports: true 
   vars:
     initial_user: root
@@ -26,16 +26,16 @@ CentOS7:
 
 CentOS6:
   hosts:
-    192.168.142.7:
-      ansbile_host: splunk
+    splunk:
+      ansbile_host: 192.168.142.7
       inc_splunk_ports: true
   vars:
     isiptables: true
 
 Ubuntu:
   hosts:
-    192.168.142.12:
-      ansible_host: web
+    web:
+      ansible_host: 192.168.142.12
       inc_web_ports: true
   vars:
     initial_user: sysadmin
@@ -45,8 +45,8 @@ Ubuntu:
 
 Debian8:
   hosts:
-    192.168.142.23:
-      ansible_host: dns-ntp
+    dns-ntp:
+      ansible_host: 192.168.142.23
       inc_ntp_ports: true
       inc_dns_ports: true
   vars:
