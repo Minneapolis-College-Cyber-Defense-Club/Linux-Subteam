@@ -23,6 +23,6 @@
     database: passwd
 
 - name: lock users under uid 1024 unless special
-  ansbile.builtin.command: "/usr/sbin/usermod -L {{ item }}"
+  ansible.builtin.command: "/usr/sbin/usermod -L {{ item }}"
   when: gentent_passwd["{{ item }}"][1] | int < 1024 and (item != root or item != sync or item != shutdown  item != halt or item != syadmin)
   with_items: "{{ gentent_passwd.keys() }}"
