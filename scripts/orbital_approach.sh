@@ -102,7 +102,7 @@ git clone ${GITHOLE}
 REPOLOC="$(find ${HOME} -name Linux-Subteam -type d -print)"
 for t in ansible scripts
 do
-    cp -r ${REPOLOC}/${t} ${DEPOT}/
+    rsync -av ${REPOLOC}/${t} ${DEPOT}/
 done
 
 # pull the collections
