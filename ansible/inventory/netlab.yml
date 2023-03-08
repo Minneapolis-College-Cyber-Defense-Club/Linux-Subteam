@@ -2,7 +2,7 @@
 firewalls:
   hosts:
     paloalto:
-      ansible_host: 
+      ansible_ssh_host: 
 mothership:
   hosts:
     discovery: 
@@ -14,11 +14,11 @@ mothership:
 EL:
   hosts:
     splunk:
-      ansbile_host: 192.168.142.7   # CHANGE
+      ansbile_ssh_host: 192.168.142.7  
     ecommerce:
-      ansible_host: 192.168.142.6   # CHANGE
+      ansible_ssh_host: 192.168.142.6  
     webmail:
-      ansible_hosts: 192.168.142.5  # CHANGE
+      ansible_ssh_hosts: 192.168.142.5 
   vars:
     initial_user: root
     initial_password: changeme
@@ -26,7 +26,7 @@ EL:
 DEB:
   hosts:
     web:
-      ansible_host: 192.168.142.12  # CHANGE
+      ansible_ssh_host: 192.168.142.12 
     dns-ntp:
-      ansible_hosts: 192.168.142.23 # CHANGE
+      ansible_ssh_hosts: 192.168.142.23
     
