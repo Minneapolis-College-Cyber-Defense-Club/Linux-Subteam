@@ -60,7 +60,7 @@
       gpgkey=file:///etc/pki/rpm-gpg/RPM-GPG-KEY-CentOS-6
       enabled=0
       metadata_expire=never
-  when: ansible_distribution == "CentOS" and ansible_distribution_major_version == "6"
+  when: ansible_distribution == "CentOS" and ansible_distribution_major_version | int == 6
 
 - name:  debian8 fixed repos
   ansible.builtin.blockinfile:
