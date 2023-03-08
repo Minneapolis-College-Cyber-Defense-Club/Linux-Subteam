@@ -10,10 +10,6 @@ mothership:
       ansible_connection: local 
       ansible_user: root
   vars:
-    depot_path: /depot
-    quarantine_path: /depot/quarantine
-    lvault_path: /depot/vault
-    lkeys_path: /depot/keys
 
 EL:
   hosts:
@@ -25,12 +21,12 @@ EL:
       ansible_hosts: 192.168.142.5  # CHANGE
   vars:
     initial_user: root
-    initial_pass: changeme
+    initial_password: changeme
     
-
 DEB:
   hosts:
-    apache:
+    web:
       ansible_host: 192.168.142.12  # CHANGE
-  vars:
+    dns-ntp:
+      ansible_hosts: 192.168.142.23 # CHANGE
     

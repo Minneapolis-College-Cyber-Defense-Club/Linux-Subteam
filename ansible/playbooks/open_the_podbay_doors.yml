@@ -2,6 +2,13 @@
 - name: open the pod bay doors Hal
   gather_facts: true
   hosts: all
+  become: true
+  become_method: su
+  vars:
+    ansible_user: "{{ initial_user }}"
+    ansible_password: "{{ initial_password }}"
+    ansible_become_user: "root"
+    ansible_become_password: "{{ initial_password }}"
   tasks:
     - name: user_setup
       ansible.builtin.include_role:
