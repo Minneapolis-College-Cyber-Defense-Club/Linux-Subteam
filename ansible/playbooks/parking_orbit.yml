@@ -73,6 +73,7 @@
     - name: do_firewall
       ansible.builtin.include_role:
         name: do_firewall
+
     - name: Add IP address of all hosts to all hosts
       lineinfile:
         dest: /etc/hosts
