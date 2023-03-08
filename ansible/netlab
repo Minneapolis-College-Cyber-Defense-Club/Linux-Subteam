@@ -1,29 +1,29 @@
 discovery   ansible_host=127.0.0.1
 ecomm       ansible_host=192.168.142.6
-webmail     ansible_hosts=192.168.142.5
-splunk      ansbile_host=192.168.142.7
-web         ansible_host=192.168.142.12
-dns-ntp     ansible_host=192.168.142.23
+email       ansible_host=192.168.142.5
+splunker    ansible_host=192.168.142.7
+www         ansible_host=192.168.142.12
+dnsntp      ansible_host=192.168.142.23
 
 [mothership]
 discovery
 [ecommerce]
 ecomm
 [webmail]
-webmail
+email
 [splunk]
-splunk
+splunker
 [web]
-web
+www
 [bindntp]
-dns-ntp
+dnsntp
 
 [EL7Fedora]
 ecomm
-webmail
+email
 [EL6]
-splunk
+splunker
 [Ubuntu]
-web
+www
 [Debian]
-dns-ntp
+dnsntp
