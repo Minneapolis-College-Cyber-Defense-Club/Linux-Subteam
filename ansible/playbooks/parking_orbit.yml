@@ -2,6 +2,9 @@
 - name: wake the crew
   gather_facts: true
   hosts: discovery
+  vars:
+    isfirewalld: true
+    inc_web_ports: true
   tasks:
     - name: user_setup
       ansible.builtin.include_role:
