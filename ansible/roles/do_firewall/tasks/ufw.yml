@@ -46,7 +46,13 @@
     - 23
     - 25
 
-- name: restart ufw
-  ansible.builtin.service:
-    name: ufw
-    state: restarted
+- name: enable ufw firewall
+  ansible.builtin.command: /usr/sbin/ufw enable
+
+- name: reload ufw firewall
+  ansible.builtin.command: /usr/sbin/ufw reload
+
+# - name: restart ufw
+#   ansible.builtin.service:
+#     name: ufw
+#     state: restarted
