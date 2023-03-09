@@ -81,7 +81,11 @@
     - name: fix_sshd
       ansible.builtin.include_role:
         name: fix_sshd
-    
+
+    - name: do_firewall
+      ansible.builtin.include_role:
+        name: do_firewall
+
     - name: clean up non-standard admin account (if present)
       ansible.builtin.user:
         name: "{{ initial_user }}"
