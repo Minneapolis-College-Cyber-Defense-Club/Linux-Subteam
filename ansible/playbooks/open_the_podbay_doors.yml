@@ -3,7 +3,6 @@
   gather_facts: true
   hosts: all:!discovery
   become: true
-  #become_method: sudo
   vars:
     ansible_password: "{{ initial_password }}"
     ansible_become_user: root
@@ -23,7 +22,6 @@
       ansible.builtin.include_role:
         name: shields_up
       loop:
-        - suss_users
         - file_archive
         - crons
         - dns
@@ -59,56 +57,3 @@
         orcman: dave2001
       ansible.builtin.include_role:
         name: do_sudo 
-
-    # before building the depot check ownership
-    - name: validating depot existence
-      vars:
-        ansible_user: dave2001
-      ansible.builtin.stat:
-        path: "{{ depot_path }}"
-      register: depot_exists
-
-    - name: do_depot
-      vars:
-        ansible_user: dave2001
-        make_depot: true
-      ansible.builtin.include_role:
-        name: do_depot
-      when: depot_exists.stat.isdir is undefined
-
-    - name: do_depot
-      vars:
-        ansible_user: dave2001        
-        do_chown: true
-        orcman: dave2001
-      ansible.builtin.include_role:
-        name: do_depot
-
-    - name: make_banner
-      vars:
-        ansible_user: dave2001
-      ansible.builtin.include_role:
-        name: make_banner
-
-    - name: fix_sshd
-      vars:
-        ansible_user: dave2001
-      ansible.builtin.include_role:
-        name: fix_sshd
-
-    - name: do_firewall
-      vars:
-        ansible_user: dave2001
-      ansible.builtin.include_role:
-        name: do_firewall
-
-    - name: clean up non-standard admin account (if present)
-      vars:
-        ansible_user: dave2001
-      ansible.builtin.user:
-        name: "{{ initial_user }}"
-        password_lock: true
-        shell: /usr/sbin/nologin
-      when: non_root_admin is defined
-
-
