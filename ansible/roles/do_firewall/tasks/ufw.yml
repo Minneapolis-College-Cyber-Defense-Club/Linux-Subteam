@@ -11,7 +11,7 @@
     enabled: yes
 
 - name: allow ssh
-- community.general.ufw:
+  community.general.ufw:
     rule: allow
     name: OpenSSH
 
