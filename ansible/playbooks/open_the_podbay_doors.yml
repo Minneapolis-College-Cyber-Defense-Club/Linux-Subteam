@@ -41,10 +41,9 @@
     - name: user_setup
       vars:
         ansible_user: "{{ initial_user }}"
+        orcman: root
       ansible.builtin.include_role:
         name: user_setup
-      vars:
-        orcman: root
 
     - name: user_setup
       vars:
