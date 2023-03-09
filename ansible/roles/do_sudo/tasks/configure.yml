@@ -1,4 +1,6 @@
 ---
+# creates /etc/sudoers.d/<user> files and grants privileges
+# sudo should be limited
 - name: Configure "{{ orcman }}" sudoers
   ansible.builtin.lineinfile:
     path: "/etc/sudoers.d/{{ orcman }}"

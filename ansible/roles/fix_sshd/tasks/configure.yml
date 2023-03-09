@@ -6,13 +6,13 @@
     owner: root
     group: root
     mode: '0600'
-
+# values are kept in a separate var file and explicitly 
+# called for setting
 - name: Configure sshd
   lineinfile:
     path: "{{ sshd_path }}"
     backup: true
-    #regex: "^(#)?{{item.key}}"
-    regexp: '^((?!#).+)$'  # match only if not commented out
+    regex: "^(#)?{{item.key}}"
     line: "{{item.key}} {{item.value}}"
     state: present
   loop:

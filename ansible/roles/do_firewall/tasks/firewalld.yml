@@ -1,4 +1,5 @@
 ---
+# firewalld playbook for EL7+/systemd NetLab hosts
 - name: install firewalld for centos7 and fedora
   ansible.builtin.package:
     name: firewalld

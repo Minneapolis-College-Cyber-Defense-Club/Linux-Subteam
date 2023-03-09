@@ -1,5 +1,8 @@
 #!/bin/bash
-
+###
+# orbital approach
+# meant to be first run before all others
+###
 export PATH=/bin:/sbin:/usr/bin:/usr/sbin
 # global vars
 DNS="1.1.1.1"
@@ -21,7 +24,8 @@ if [[ $(/bin/whoami) != 'root' ]]; then
     exit 666
 fi
 
-# basic networking fixes
+# basic networking fixes to clean up some noted concerns on 
+# Netlab hosts
 cp /etc/resolv.conf /etc/resolv.conf.orig
 # critical we don't have a poisoned DNS 
 printf "checking dns...\n"
@@ -46,7 +50,7 @@ done
 # install pre-reqs
 printf "installing requirements...\n"
 # install required packages
-# need EPEL
+# need EPEL for ansible
 #sed -i.prev s/enabled=1/enabled=0/g /etc/yum/pluginconf.d/fastestmirror.conf
 yum clean all
 yum makecache
@@ -101,6 +105,7 @@ printf "populating the structure...\n"
 loopit="true"
 while [[ "${loopit}" = "true" ]]
 do
+# only answer 'n' in our testing environment which will not be available at competition
 read -p "At competition? y/n " response
 case ${response} in
     y | Y | yes | Yes | YES) GITHOLE="https://github.com/Minneapolis-College-Cyber-Defense-Club/ccdc.git" 
@@ -118,7 +123,7 @@ do
     rsync -av ${REPOLOC}/${t} ${DEPOT}/
 done
 
-# pull the collections
+# pull the required addtiional collections
 ansible-galaxy collection install ${COLLECTIONS}
 
 ansible-playbook -i ${DEPOT}/ansible/netlab -l discovery ${PB_BASE}/parking_orbit.yml

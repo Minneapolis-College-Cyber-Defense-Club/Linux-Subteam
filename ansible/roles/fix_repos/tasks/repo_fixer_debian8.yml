@@ -1,4 +1,7 @@
 ---
+# old Debian archives are in much the same situation as CentOS6
+# a bit of hackery is needed to get them working and old versions
+# no longer have valid security repos due to key expirations
 - name: disable existing repo by commenting out lines
   ansible.builtin.replace:
     path: "{{ repo_path }}"

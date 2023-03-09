@@ -1,4 +1,7 @@
 ---
+# Phase 1 kill chain, only for Debian8, because special old OS needs
+# difference in top level ansible variables that aren't used in the other NetLab
+# hosts
 - name: open the pod bay doors Hal
   gather_facts: true
   hosts: dnsntp
@@ -27,15 +30,6 @@
         - crons
         - dns
         - hosts
-
-    # # CentOS6 requires a package to work properly
-    # - name: install libselinux-python
-    #   vars:
-    #     ansible_user: "{{ initial_user }}"
-    #   ansible.builtin.package:
-    #     name: libselinux-python
-    #     state: present
-    #   when: iscentos6 is defined
 
     - name: user_setup
       vars:

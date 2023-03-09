@@ -1,4 +1,7 @@
 ---
+# NetLab hosts have "poisoned" DNS servers defined in some cases
+# these servers block access to sites such as Windows update, centos.org, etc.
+# This comments out existing settings for review and puts in a "safe" DNS site
 - name: adjust existing /etc/resolv.conf
   ansible.builtin.replace:
     path: /etc/resolv.conf

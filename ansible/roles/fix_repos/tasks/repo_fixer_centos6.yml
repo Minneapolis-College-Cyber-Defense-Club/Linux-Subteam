@@ -1,4 +1,9 @@
 ---
+# CentOS6 as 2022 vaults are inaccessible to most version of CentOS6
+# due to the centos.org site only providing TLS 1.2+ support and
+# older versions of CentOS6 openssl do not support 1.2, so the
+# site becomes inaccessible. CERN maintains old vaults as a courtesy
+# to users who need the old versions
 - name: disable existing repo by commenting out lines
   ansible.builtin.replace:
     path: "{{ repo_path }}"

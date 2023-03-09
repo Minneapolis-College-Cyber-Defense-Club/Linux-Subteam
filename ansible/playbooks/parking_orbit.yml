@@ -1,4 +1,7 @@
 ---
+# this is the setup playbook that should only run on the Ansible coordinator
+# make sure to exclude this host from other kill chain playbooks as this playbook
+# has the same roles but tuned for the coordinator and its NetLab function
 - name: wake the crew
   gather_facts: true
   hosts: discovery

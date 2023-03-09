@@ -1,4 +1,5 @@
 ---
+# goes through and comments out all non-comment lines
 - name: adjust existing sudoers
   ansible.builtin.replace:
     path: "/etc/sudoers"
@@ -6,6 +7,7 @@
     regexp: '^((?!#).+)$'  # match only if not commented out
     replace: '# \1'
 
+# adds our stripped sudoers settings into /etc/sudoers
 - name: put settings in place
   ansible.builtin.blockinfile:
     path: "/etc/sudoers"
@@ -24,6 +26,7 @@
       Defaults env_keep += "_XKB_CHARSET XAUTHORITY"
       Defaults secure_path = /sbin:/bin:/usr/sbin:/usr/bin
       
+# create stub files for users that need sudo, easier to keep track of
 - name: make sure includedir is present at bottom of file
   ansible.builtin.lineinfile:
     path: "/etc/sudoers"

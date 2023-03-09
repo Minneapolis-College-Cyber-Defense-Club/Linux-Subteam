@@ -1,10 +1,13 @@
 ---
+# inlcude the var file that has the desired sshd settings
 - include_vars: "../vars/sshd_vars.yml"
 
+# edit the /etc/ssh/sshd_config to desired state
 - name: configure sshd
   ansible.builtin.import_tasks:
     file: configure.yml
 
+# deny users unless they have a Match user stanza
 - name: add allowed
   vars:
     orcman: "{{ item }}"
@@ -14,15 +17,7 @@
     - dave2001
     - root
 
-- name: if ubuntu symlink /etc/init.d/sshd to /etc/init.d/ssh
-  ansible.builtin.file:
-    src: /etc/init.d/ssh
-    dest: /etc/init.d/sshd
-    owner: root
-    group: root
-    state: link
-  when: needs_ssh_link is defined
-
+# Ubuntu (14) doesn't call sshd, calls ssh...ancient OSes...
 - name: restart sshd
   ansible.builtin.service:
     name: sshd

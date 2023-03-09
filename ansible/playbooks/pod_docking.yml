@@ -1,4 +1,6 @@
 ---
+# Phase 2 of the kill chain, should be run after open_the_podbay_doors...
+# again exclude (-l '!<host>') the coordinator from this run
 - name: docking the pod
   gather_facts: true
   hosts: all:!discovery
