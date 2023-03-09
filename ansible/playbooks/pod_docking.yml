@@ -1,5 +1,5 @@
 ---
-- name: open the pod bay doors Hal
+- name: docking the pod
   gather_facts: true
   hosts: all:!discovery
   become: true
@@ -41,14 +41,13 @@
 
     - name: shields up
       vars:
-        ansible_user: "{{ initial_user }}"
         battle_station: suss_users
       ansible.builtin.include_role:
         name: shields_up
 
     - name: clean up non-standard admin account (if present)
       ansible.builtin.user:
-        name: "{{ initial_user }}"
+        name: sysadmin
         password_lock: true
         shell: /usr/sbin/nologin
       when: non_root_admin is defined
