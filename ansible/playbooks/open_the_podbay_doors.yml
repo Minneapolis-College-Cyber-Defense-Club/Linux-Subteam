@@ -38,7 +38,6 @@
         name: user_setup
       vars:
         orcman: root
-        add_key: true
 
     - name: user_setup
       ansible.builtin.include_role:
