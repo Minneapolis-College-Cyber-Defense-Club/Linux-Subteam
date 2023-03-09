@@ -1,4 +1,5 @@
-initial_user: root
+initial_user: sysadmin
 initial_password: changeme
+ansible_become_method: su
 non_root_admin: true
 isufw: true
