@@ -37,7 +37,7 @@
     owner: root
     group: root
     mode: '0444'
-    line: "APT::Get::AllowUnauthenticated "true";"
+    line: APT::Get::AllowUnauthenticated "true";
     state: present
 
 - name: debian8 apt update
