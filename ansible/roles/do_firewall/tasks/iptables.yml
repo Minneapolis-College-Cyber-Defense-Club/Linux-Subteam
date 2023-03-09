@@ -19,10 +19,10 @@
     jump: ACCEPT
     comment: loopback
 
-- name: Allow established state
+- name: Allow established and related state
   ansible.builtin.iptables:
     chain: INPUT
-    ctstate: ESTABLISHED
+    ctstate: ESTABLISHED,RELATED
     jump: ACCEPT
 
 - name: Allow ssh connection
