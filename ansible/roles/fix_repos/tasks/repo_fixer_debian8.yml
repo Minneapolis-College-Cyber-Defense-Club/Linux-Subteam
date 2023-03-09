@@ -41,5 +41,4 @@
     state: present
 
 - name: debian8 apt update
-  ansbile.builtin.shell: |
-    apt update
+  ansible.builtin.shell: /usr/bin/apt update

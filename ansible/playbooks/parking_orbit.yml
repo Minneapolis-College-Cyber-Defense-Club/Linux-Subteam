@@ -73,12 +73,3 @@
     - name: do_firewall
       ansible.builtin.include_role:
         name: do_firewall
-
-    - name: Add IP address of all hosts to /etc/hosts
-      lineinfile:
-        dest: /etc/hosts
-        regexp: '.*{{ item }}$'
-        line: "{{ hostvars[item].ansible_host }}\t{{ item }} "
-        state: present
-      when: hostvars[item].ansible_host is defined
-      with_items: "{{ groups.all }}"
