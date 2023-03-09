@@ -40,5 +40,3 @@
     line: APT::Get::AllowUnauthenticated "true";
     state: present
 
-- name: debian8 apt update
-  ansible.builtin.shell: /usr/bin/apt update
