@@ -27,14 +27,14 @@
         - dns
         - hosts
 
-    # CentOS6 requires a package to work properly
-    - name: install libselinux-python
-      vars:
-        ansible_user: "{{ initial_user }}"
-      ansible.builtin.package:
-        name: libselinux-python
-        state: present
-      when: iscentos6 is defined
+    # # CentOS6 requires a package to work properly
+    # - name: install libselinux-python
+    #   vars:
+    #     ansible_user: "{{ initial_user }}"
+    #   ansible.builtin.package:
+    #     name: libselinux-python
+    #     state: present
+    #   when: iscentos6 is defined
 
     - name: user_setup
       vars:
