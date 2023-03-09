@@ -36,20 +36,15 @@
     - 80
     - 443
 
-- name: Deny all access to ftp
+- name: Deny all access to common insecure ports
   community.general.ufw:
     rule: deny
-    name: ftp
-
-- name: Deny all access to telnet
-  community.general.ufw:
-    rule: deny
-    name: telnet
-
-- name: Deny all access to port 25 (smtp)
-  community.general.ufw:
-    rule: deny
-    port: '25'
+    port: "{{ item }}"
+  with_items:
+    - 20
+    - 21
+    - 23
+    - 25
 
 - name: restart ufw
   ansible.builtin.service:
