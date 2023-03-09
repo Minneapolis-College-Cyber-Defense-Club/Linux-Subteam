@@ -3,3 +3,55 @@
   ansible.builtin.package:
     name: ufw
     state: present
+
+- name: start ufw
+  ansible.builtin.service:
+    name: ufw
+    state: started
+    enabled: yes
+
+- name: allow ssh
+- community.general.ufw:
+    rule: allow
+    name: OpenSSH
+
+- name: allow all access to port 53 (dns)
+  community.general.ufw:
+    rule: allow
+    port: '53'
+  when: inc_dns_ports is defined
+
+- name: allow all access to port 127 (ntp)
+  community.general.ufw:
+    rule: allow
+    port: '127'
+  when: inc_ntp_ports is defined
+
+- name: allow all access to port 80 (http) and 443 (https)
+  community.general.ufw:
+    rule: allow
+    port: '{{ item }}'
+  when: inc_web_ports is defined
+  with_items:
+    - 80
+    - 443
+
+- name: Deny all access to ftp
+  community.general.ufw:
+    rule: deny
+    name: ftp
+
+- name: Deny all access to telnet
+  community.general.ufw:
+    rule: deny
+    name: telnet
+
+- name: Deny all access to port 25 (smtp)
+  community.general.ufw:
+    rule: deny
+    port: '25'
+
+- name: restart ufw
+  ansible.builtin.service:
+    name: ufw
+    state: restarted
