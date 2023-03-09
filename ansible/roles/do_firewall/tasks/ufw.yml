@@ -4,16 +4,15 @@
     name: ufw
     state: present
 
-- name: start ufw
-  ansible.builtin.service:
-    name: ufw
-    state: started
-    enabled: yes
-
 - name: allow ssh
   community.general.ufw:
     rule: allow
     name: OpenSSH
+
+- name: UFW - Enable and deny by default
+  community.general.ufw:
+    state: enabled
+    default: deny
 
 - name: allow all access to port 53 (dns)
   community.general.ufw:
@@ -46,13 +45,7 @@
     - 23
     - 25
 
-- name: enable ufw firewall
-  ansible.builtin.shell: /usr/sbin/ufw enable
+- name: UFW - reload
+  community.general.ufw:
+    state: reload
 
-- name: reload ufw firewall
-  ansible.builtin.shell: /usr/sbin/ufw reload
-
-# - name: restart ufw
-#   ansible.builtin.service:
-#     name: ufw
-#     state: restarted
