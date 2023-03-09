@@ -101,9 +101,9 @@ while [[ "${loopit}" = "true" ]]
 do
 read -p "At competition? y/n " response
 case ${response} in
-    y) GITHOLE="https://github.com/Minneapolis-College-Cyber-Defense-Club/ccdc.git" 
+    y | Y | yes | Yes | YES) GITHOLE="https://github.com/Minneapolis-College-Cyber-Defense-Club/ccdc.git" 
         loopit="false";;
-    n) GITHOLE="https://github.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam.git"
+    n | N | no | No | NO) GITHOLE="https://github.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam.git"
         loopit="false" ;;
     *) printf "please enter 'y' or 'n' \n" ;;
 esac

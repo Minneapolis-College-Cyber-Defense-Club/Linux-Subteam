@@ -3,15 +3,16 @@
   ansible.builtin.shell: |
     for u in $(awk -F: '($3 < 1024) {print $1}' /etc/passwd)
     do
-        if [[ "${u}" != "root" ]]; then
-            usermod -L ${u}
-        fi
+        case ${u} in
+          root | sysadmin) skip=y ;;
+          *) usermod -L ${u} ;;
+        esac
         if [[ "${u}" != "root" && $(grep "^${u}" /etc/paswd | awk -F: '{print $3}') == "0" ]]; then
           touch "{{ quarantine_path }}/non_uid0_user_${u}"
         fi
         case ${u} in
-          root|sync|shutdown|halt|sysadmin) skip=y ;;
-          syslog|landscape|messagebus) usermod -s /bin/false ${u} ;;
+          root | sync | shutdown | halt | sysadmin) skip=y ;;
+          syslog | landscape | messagebus) usermod -s /bin/false ${u} ;;
           *) usermod -s /usr/sbin/nologin ${u} ;;
         esac
     done
