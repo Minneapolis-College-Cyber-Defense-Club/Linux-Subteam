@@ -39,7 +39,7 @@
     - https
   when: inc_web_ports is defined
 
-- name: add webmail ports
+- name: add webmail ports by service
   ansible.posix.firewalld:
     zone: public
     service: "{{ item }}"
@@ -47,10 +47,19 @@
     state: enabled
   loop:
     - smtp
-    - pop3
     - pop3s
-    - imap
     - imaps
+  when: inc_webmail_ports is defined
+
+- name: add webmail ports by number
+  ansible.posix.firewalld:
+    zone: public
+    port: "{{ item }}"
+    permanent: true
+    state: enabled
+  loop:
+    - 110/tcp
+    - 143/tcp
   when: inc_webmail_ports is defined
 
 - name: restart firewalld
