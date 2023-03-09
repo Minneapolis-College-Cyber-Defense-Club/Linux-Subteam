@@ -14,6 +14,12 @@
         name: fix_repos
       when: iscentos6 is defined or isdebian8 is defined
 
+    - name: remove fprintd if exists, hangs sudo on fedora
+      ansible.builtin.package:
+        name: fprintd
+        state: absent
+      when: ansible_distribution == "Fedora"
+
     - name: shields up
       vars:
         battle_station: "{{ item }}"
