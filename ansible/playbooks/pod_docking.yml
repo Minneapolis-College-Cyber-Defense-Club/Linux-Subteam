@@ -7,6 +7,8 @@
   vars:
     ansible_user: dave2001
     ansible_become_user: root
+  vars_files:
+    - /depot/vault/sudo.yml
   tasks:
     - name: user_setup
       vars:

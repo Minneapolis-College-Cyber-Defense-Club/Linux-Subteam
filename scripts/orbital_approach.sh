@@ -86,6 +86,8 @@ do
             ;;
         dave2001)
             USERID="111112"
+            read -p "repeat password for ${u} for sudo: " s_password
+            echo "ansible_become_password: ${s_password}" > ${DEPOT}/vault/sudo.yml
             ;;
         root)
             USERID="0"
