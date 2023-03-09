@@ -50,7 +50,7 @@
     jump: ACCEPT
     comment: bind and ntp
   when: inc_dns_ports is defined and inc_ntp_ports is defined
-  with_itms: [ '53', '127' ]
+  with_items: [ '53', '127' ]
 
 - name: disallow specific ports
   ansible.builtin.iptables:
