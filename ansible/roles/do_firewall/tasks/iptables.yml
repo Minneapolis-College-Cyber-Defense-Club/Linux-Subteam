@@ -42,6 +42,16 @@
     comment: splunk
   when: inc_splunk_ports is defined
 
+- name: Allow bind and ntp connection
+  ansible.builtin.iptables:
+    chain: INPUT
+    protocol: tcp
+    destination_port: "{{ item }}"
+    jump: ACCEPT
+    comment: bind and ntp
+  when: inc_dns_ports is defined and inc_ntp_ports is defined
+  with_itms: [ '53', '127' ]
+
 - name: disallow specific ports
   ansible.builtin.iptables:
     chain: INPUT
