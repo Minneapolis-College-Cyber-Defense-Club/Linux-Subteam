@@ -1,7 +1,7 @@
 ---
 - name: open the pod bay doors Hal
   gather_facts: true
-  hosts: all:!discovery!;dnsntp
+  hosts: all:!discovery:!dnsntp
   become: true
   vars:
     ansible_user: "{{ initial_user }}"
