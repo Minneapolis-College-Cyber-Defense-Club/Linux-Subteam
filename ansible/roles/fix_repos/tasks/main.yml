@@ -4,12 +4,12 @@
   vars:
     repo_path: /etc/yum.repos.d/CentOS-Base.repo
   ansible.builtin.import_tasks:
-    file: repo_fixer.yml
+    file: repo_fixer_centos6.yml
   when: iscentos6 is defined
 
 - name: fix debian8
   vars:
     repo_path: /etc/apt/sources.list
   ansible.builtin.import_tasks:
-    file: repo_fixer.yml
+    file: repo_fixer_debian8.yml
   when: isdebian8 is defined

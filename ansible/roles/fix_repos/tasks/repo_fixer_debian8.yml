@@ -1,0 +1,31 @@
+---
+- name: disable existing repo by commenting out lines
+  ansible.builtin.replace:
+    path: "{{ repo_path }}"
+    backup: true
+    regexp: '^((?!#).+)$'  # match only if not commented out
+    replace: '# \1'
+
+- name:  debian8 fixed repos
+  ansible.builtin.blockinfile:
+    path: "{{ repo_path }}"
+    backup: true
+    create: true
+    owner: root
+    group: root
+    mode: 0644
+    state: present
+    marker: "# {mark} fixed repository debian8"
+    block: |
+      deb http://deb.debian.org/debian/ {{ ansible_distribution_release }} main
+      deb http://security.debian.org/ {{ ansible_distribution_release }}/updates main
+
+- name:  debian8 fixed security certificates
+  ansible.builtin.lineinfile:
+    path: "/etc/apt/apt.conf"
+    create: true
+    owner: root
+    group: root
+    mode: '0440'
+    line: "Acquire::Check-Valid-Until false;"
+    state: present
