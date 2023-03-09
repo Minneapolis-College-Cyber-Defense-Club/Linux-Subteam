@@ -18,7 +18,7 @@
     marker: "# {mark} fixed repository debian8"
     block: |
       deb http://deb.debian.org/debian/ {{ ansible_distribution_release }} main
-      deb http://security.debian.org/ {{ ansible_distribution_release }}/updates main
+      #deb http://security.debian.org/ {{ ansible_distribution_release }}/updates main
 
 - name:  debian8 fixed security certificates
   ansible.builtin.lineinfile:
@@ -39,4 +39,9 @@
     mode: '0444'
     line: APT::Get::AllowUnauthenticated "true";
     state: present
+
+- name: debian8 apt update
+  ansible.builtin.shell: |
+    /usr/bin/apt-get clean
+    /usr/bin/apt-get update
 

@@ -28,10 +28,6 @@
         - dns
         - hosts
 
-    - name: debian8 apt update
-      ansible.builtin.shell: |
-        /usr/bin/apt-get clean
-
     # # CentOS6 requires a package to work properly
     # - name: install libselinux-python
     #   vars:
