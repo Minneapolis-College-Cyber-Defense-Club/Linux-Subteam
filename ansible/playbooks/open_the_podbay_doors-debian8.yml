@@ -10,7 +10,7 @@
     ansible_become_password: "{{ initial_password }}"
     ansible_become_method: su
   vars_files:
-    - "../vars/first-pass.yml"
+    - "vars/first_pass.yml"
   tasks:
     - name: fix repos CentOS6 (if appropriate)
       ansible.builtin.include_role:

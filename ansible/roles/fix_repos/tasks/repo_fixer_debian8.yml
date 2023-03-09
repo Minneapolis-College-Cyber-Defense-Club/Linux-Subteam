@@ -29,3 +29,17 @@
     mode: '0440'
     line: "Acquire::Check-Valid-Until false;"
     state: present
+
+- name: debian8 fix ancient mirror issues
+  ansible.builtin.lineinfile:
+    path: "/etc/apt/apt.conf.d/99ccdc"
+    create: true
+    owner: root
+    group: root
+    mode: '0444'
+    line: "APT::Get::AllowUnauthenticated "true";"
+    state: present
+
+- name: debian8 apt update
+  ansbile.builtin.shell: |
+    apt update

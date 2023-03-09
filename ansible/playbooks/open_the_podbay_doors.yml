@@ -9,9 +9,6 @@
     ansible_become_user: root
     ansible_become_password: "{{ initial_password }}"
   tasks:
-    - include_vars: ../vars/first-pass.yml
-      when: isdebian8 is defined
-
     - name: fix repos CentOS6 (if appropriate)
       ansible.builtin.include_role:
         name: fix_repos
