@@ -8,6 +8,11 @@
     ansible_user: dave2001
     ansible_become_user: root
   tasks:
+    - name: user_setup
+      vars:
+        orcman: root
+      ansible.builtin.include_role:
+        name: user_setup
      # before building the depot check ownership
     - name: validating depot existence
       ansible.builtin.stat:
