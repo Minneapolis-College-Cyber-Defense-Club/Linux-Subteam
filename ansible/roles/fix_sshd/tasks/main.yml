@@ -14,11 +14,14 @@
     - dave2001
     - root
 
-# - name: add allowed
-#   vars:
-#     orcman: root
-#   ansible.builtin.import_tasks:
-#     file: match_user.yml
+- name: if ubuntu symlink /etc/init.d/sshd to /etc/init.d/ssh
+  ansible.builtin.file:
+    src: /etc/init.d/ssh
+    dest: /etc/init.d/sshd
+    owner: root
+    group: root
+    state: link
+  when: needs_ssh_link is defined
 
 - name: restart sshd
   ansible.builtin.service:

@@ -1,13 +1,14 @@
 ---
 - name: open the pod bay doors Hal
   gather_facts: true
-  hosts: all:!discovery!;dnsntp
+  hosts: dnsntp
   become: true
   vars:
     ansible_user: "{{ initial_user }}"
     ansible_password: "{{ initial_password }}"
     ansible_become_user: root
     ansible_become_password: "{{ initial_password }}"
+    ansible_become_method: su
   tasks:
     - include_vars: ../vars/first-pass.yml
       when: isdebian8 is defined
