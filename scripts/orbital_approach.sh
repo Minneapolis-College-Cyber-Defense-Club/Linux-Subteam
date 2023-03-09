@@ -128,7 +128,7 @@ ansible-galaxy collection install ${COLLECTIONS}
 
 ansible-playbook -i ${DEPOT}/ansible/netlab -l discovery ${PB_BASE}/parking_orbit.yml
 
-printf "!!!Note!!! if inventory needs to be adjuted post-run, as hal run this on discovery:\n
+printf "!!!Note!!! if inventory needs to be adjuted post-run, as root, run this on discovery:\n
         ansible-playbook -i ${DEPOT}/ansible/netlab -l discovery ${PB_BASE}/add_inv_to_hosts.yml\n"
 
 # pull the collections for hal
