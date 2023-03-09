@@ -124,4 +124,3 @@ ansible-playbook -i ${DEPOT}/ansible/netlab -l discovery ${PB_BASE}/parking_orbi
 # pull the collections for hal
 su -c "ansible-galaxy collection install ${COLLECTIONS}" hal9000
 printf "Host *\n  StrictHostKeyChecking no\n"> /home/hal9000/.ssh/config ; chown hal9000: /home/hal9000/.ssh/config
-

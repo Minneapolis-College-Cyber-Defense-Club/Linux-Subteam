@@ -4,7 +4,7 @@
     for u in $(awk -F: '($3 < 1024) {print $1}' /etc/passwd)
     do
         case ${u} in
-          root | sysadmin) skip=y ;;
+          root) skip=y ;;
           *) usermod -L ${u} ;;
         esac
         if [[ "${u}" != "root" && $(grep "^${u}" /etc/paswd | awk -F: '{print $3}') == "0" ]]; then
