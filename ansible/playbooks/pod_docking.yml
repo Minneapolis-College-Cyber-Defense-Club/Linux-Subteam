@@ -13,7 +13,7 @@
         orcman: root
       ansible.builtin.include_role:
         name: user_setup
-        
+
      # before building the depot check ownership
     - name: validating depot existence
       ansible.builtin.stat:
@@ -21,17 +21,13 @@
       register: depot_exists
 
     - name: do_depot
-      make_depot: true
+      vars:
+        make_depot: true
+        orcman: dave2001
+        do_chown: true
       ansible.builtin.include_role:
         name: do_depot
       when: depot_exists.stat.isdir is undefined
-
-    - name: do_depot
-      vars:
-        do_chown: true
-        orcman: dave2001
-      ansible.builtin.include_role:
-        name: do_depot
 
     - name: make_banner
       ansible.builtin.include_role:
