@@ -45,6 +45,13 @@
       ansible.builtin.include_role:
         name: shields_up
 
+    - name: do_sudo
+      vars:
+        orcman: dave2001
+        sudo_pass2: true
+      ansible.builtin.include_role:
+        name: do_sudo 
+
     - name: clean up non-standard admin account (if present)
       ansible.builtin.user:
         name: sysadmin
