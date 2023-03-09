@@ -5,6 +5,7 @@
   become: true
   vars:
     ansible_connection: local
+    ansible_become_user: dave2001
     ansible_become_method: sudo
   tasks:
     - name: Add IP address of all hosts to /etc/hosts
