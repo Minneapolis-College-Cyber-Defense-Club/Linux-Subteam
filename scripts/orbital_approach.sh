@@ -51,12 +51,6 @@ done
 # install pre-reqs
 printf "installing requirements...\n"
 # install required packages
-# need EPEL for ansible
-#sed -i.prev s/enabled=1/enabled=0/g /etc/yum/pluginconf.d/fastestmirror.conf
-# yum clean all
-# yum makecache
-
-
 case ${OS} in
     centos | rocky | redhat) PKG="yum" 
         ${PKG} clean all
