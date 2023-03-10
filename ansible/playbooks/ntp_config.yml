@@ -1,6 +1,6 @@
 ---
 
-- hosts:      # NTP server
+- hosts: dnsntp
   become: true
   tasks:
 
@@ -22,7 +22,7 @@
 
   - name: update ntp.conf file
     ansible.builtin.template:
-      src: ntp.conf.j2
+      src: ../files/ntp.conf.j2
       dest: /etc/ntp.conf
 
   - name: restart ntp
