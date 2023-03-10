@@ -15,13 +15,13 @@
 
   - name: Network hardening adjustment in /etc/sysctl.conf (debian and ubuntu)
     ansible.builtin.template:
-      src: ubuntu_sysctl.conf.j2
+      src: ../files/ubuntu_sysctl.conf.j2
       dest: /etc/sysctl.conf
     when: ansible_distribution in ["Debian", "Ubuntu"]
 
   - name: Network hardening adjustment in /etc/sysctl.conf (centOS and fedora)
     ansible.builtin.template:
-      src: el_sysctl.conf.j2       
+      src: ../files/el_sysctl.conf.j2       
       dest: /etc/sysctl.conf
     when: ansible_distribution in ["CentOS", "Fedora"]
 
