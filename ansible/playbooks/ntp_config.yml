@@ -18,7 +18,7 @@
       enabled: yes
 
   - name: Backup default ntp.conf file
-    anisble.builtin.command: cp -p /etc/ntp.conf /etc/ntp_default.conf
+    ansible.builtin.command: cp -p /etc/ntp.conf /etc/ntp_default.conf
 
   - name: update ntp.conf file
     ansible.builtin.template:
