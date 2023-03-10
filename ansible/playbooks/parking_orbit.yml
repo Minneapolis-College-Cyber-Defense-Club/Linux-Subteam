@@ -5,9 +5,6 @@
 - name: wake the crew
   gather_facts: true
   hosts: discovery
-  vars:
-    isfirewalld: true
-    inc_web_ports: true
   tasks:
     - name: user_setup
       ansible.builtin.include_role:
@@ -76,3 +73,13 @@
     - name: do_firewall
       ansible.builtin.include_role:
         name: do_firewall
+      vars:
+        isufw: true
+      when: ansible_distribution is ["Ubuntu", "Debian"]
+
+    - name: do_firewall
+      ansible.builtin.include_role:
+        name: do_firewall
+      vars:
+        isfirewalld: true
+      when: ansible_distribution is ["CentOS", "Fedora", "Rocky", "RedHat"] and ansible_distribution_major_number | int > 6  
