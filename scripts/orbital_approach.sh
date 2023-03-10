@@ -55,7 +55,7 @@ case ${OS} in
     centos | rocky | redhat) PKG="yum" 
         ${PKG} clean all
         ${PKG} makecache
-        ${PGK} install -y epel-release libselinux-python
+        ${PKG} install -y epel-release libselinux-python
         PYTHON=python
     ;;
     ubuntu) PKG="apt"
@@ -69,7 +69,7 @@ case ${OS} in
     ;;
 esac
 [[ -x /usr/bin/python ]] || ${PKG} install -y python
-[[ -x /usr/bin/ansbile ]] || ${PKG} install -y ansible
+[[ -x /usr/bin/ansible ]] || ${PKG} install -y ansible
 [[ -x /usr/bin/tmux ]] || ${PKG} install -y tmux
 [[ -x /usr/bin/wget ]] || ${PKG} install -y wget
 [[ -x /usr/bin/git ]] || ${PKG} install -y git
