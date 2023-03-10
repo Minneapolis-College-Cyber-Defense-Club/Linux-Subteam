@@ -20,7 +20,7 @@ NOLOGIN="$(which nologin)"
 
 
 # initial checks
-if [[ $(/bin/whoami) != 'root' ]]; then   
+if [[ $(/usr/bin/whoami) != 'root' ]]; then   
     printf "Must run as root.\n"
     exit 666
 fi
