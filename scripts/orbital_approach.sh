@@ -9,7 +9,7 @@ DNS="1.1.1.1"
 HOSTNAME="$(uname -n)"
 IP="127.0.0.1"
 DEPOT="/depot"
-OS=$(grep '^ID=' /etc/os-release | awk -F= '{print $2}')
+OS=$(grep '^ID=' /etc/os-release | awk -F= '{print $2}' | tr -d [:punct:])
 OS_VER="$(grep '^VERISON_ID=' /etc/os-release | awk -F\" '{print $2}')"
 #GITHOLE="https://github.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam.git"
 URL_BASE="https://raw.githubusercontent.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam/main"
@@ -55,21 +55,23 @@ printf "installing requirements...\n"
 #sed -i.prev s/enabled=1/enabled=0/g /etc/yum/pluginconf.d/fastestmirror.conf
 # yum clean all
 # yum makecache
+
+
 case ${OS} in
-    "centos" | centos | rocky | redhat) PKG="yum" 
-    ${PKG} clean all
-    ${PKG} makecache
-    ${PGK} install -y epel-release libselinux-python
-    PYTHON=python
+    centos | rocky | redhat) PKG="yum" 
+        ${PKG} clean all
+        ${PKG} makecache
+        ${PGK} install -y epel-release libselinux-python
+        PYTHON=python
     ;;
     ubuntu) PKG="apt"
-    # echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main">>/etc/apt/sources.list
-    # apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
-    ${PKG} install -y software-properties-common
-    apt-add-repository -y ppa:ansible/ansible
-    ${PKG} update
-    ${PKG} install -y python-crypto python python3
-    PYTHON=python3
+        # echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main">>/etc/apt/sources.list
+        # apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
+        ${PKG} install -y software-properties-common
+        apt-add-repository -y ppa:ansible/ansible
+        ${PKG} update
+        ${PKG} install -y python-crypto python python3
+        PYTHON=python3
     ;;
 esac
 [[ -x /usr/bin/python ]] || ${PKG} install -y python
