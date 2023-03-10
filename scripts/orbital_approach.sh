@@ -60,13 +60,16 @@ case ${OS} in
     ${PKG} clean all
     ${PKG} makecache
     ${PGK} install -y epel-release libselinux-python
+    PYTHON=python
     ;;
     ubuntu) PKG="apt"
     # echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main">>/etc/apt/sources.list
     # apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
     ${PKG} install -y software-properties-common
-    apt-add-repository ppa:ansible/ansible
+    apt-add-repository -y ppa:ansible/ansible
     ${PKG} update
+    ${PKG} install -y python-crypto python python3
+    PYTHON=python3
     ;;
 esac
 [[ -x /usr/bin/python ]] || ${PKG} install -y python
@@ -93,7 +96,7 @@ printf "open the pod bay doors HAL...\n"
 for u in hal9000 dave2001 root
 do
     printf "enter password for ${u}: \n"
-    h_password="$(python -c 'import crypt,getpass; print(crypt.crypt(getpass.getpass(),crypt.METHOD_SHA512))')"
+    h_password="$(${PYTHON} -c 'import crypt,getpass; print(crypt.crypt(getpass.getpass(),crypt.METHOD_SHA512))')"
     [[ -d ${DEPOT}/vault ]] || mkdir -p ${DEPOT}/vault
     USERVAULT="${DEPOT}/vault/${u}.yml"
     echo "h_password: ${h_password}" > ${USERVAULT}
