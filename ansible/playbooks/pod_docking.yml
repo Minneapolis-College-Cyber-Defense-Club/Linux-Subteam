@@ -53,14 +53,14 @@
         name: do_firewall
       vars:
         isfirewalld: true
-      when: ansible_os_family == "RedHat" and ansible_distribution_major_version | int > 6
+      when: ansible_os_family == "RedHat" and ansible_distribution_major_version|int > 6
 
     - name: do_firewall
       ansible.builtin.include_role:
         name: do_firewall
       vars:
         isiptables: true
-      when: ansible_os_family == "RedHat" and ansible_distribution_major_version | int == 6
+      when: ansible_os_family == "RedHat" and ansible_distribution_major_version|int == 6
 
     - name: shields up
       vars:
