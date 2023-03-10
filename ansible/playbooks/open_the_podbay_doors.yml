@@ -17,7 +17,7 @@
     - name: fix repos CentOS6 (if appropriate)
       ansible.builtin.include_role:
         name: fix_repos
-      when: iscentos6 is defined or isdebian8 is defined
+      when: ansbile_distribution == "CentOS" and ansible_distribution_major_version | int == 6
 
     # this causes delay in PAM auth processing and isn't used
     # so should be removed
