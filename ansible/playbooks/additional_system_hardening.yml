@@ -11,7 +11,7 @@
         - ftp
         - ftpd
         - tftp
-    state: absent
+      state: absent
 
   - name: Network hardening adjustment in /etc/sysctl.conf (debian and ubuntu)
     ansible.builtin.template:
