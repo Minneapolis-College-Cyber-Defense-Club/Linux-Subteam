@@ -56,7 +56,7 @@ printf "installing requirements...\n"
 # yum clean all
 # yum makecache
 case ${OS} in
-    centos) PKG="yum" 
+    "centos" | centos | rocky | redhat) PKG="yum" 
     ${PKG} clean all
     ${PKG} makecache
     ${PGK} install -y epel-release libselinux-python
