@@ -9,7 +9,7 @@ DNS="1.1.1.1"
 HOSTNAME="$(uname -n)"
 IP="127.0.0.1"
 DEPOT="/depot"
-OS="$(grep '^ID=' /etc/os-release | awk -F\" '{print $2}')"
+OS=$(grep '^ID=' /etc/os-release | awk -F= '{print $2}')
 OS_VER="$(grep '^VERISON_ID=' /etc/os-release | awk -F\" '{print $2}')"
 #GITHOLE="https://github.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam.git"
 URL_BASE="https://raw.githubusercontent.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam/main"
@@ -17,6 +17,7 @@ SCR_BASE="${DEPOT}/scripts"
 PB_BASE="${DEPOT}/ansible/playbooks"
 COLLECTIONS="ansible.posix community.general"
 NOLOGIN="$(which nologin)"
+
 
 # initial checks
 if [[ $(/bin/whoami) != 'root' ]]; then   
@@ -52,14 +53,27 @@ printf "installing requirements...\n"
 # install required packages
 # need EPEL for ansible
 #sed -i.prev s/enabled=1/enabled=0/g /etc/yum/pluginconf.d/fastestmirror.conf
-yum clean all
-yum makecache
-yum install -y epel-release libselinux-python
-[[ -x /bin/python ]] || yum install -y python
-[[ -x /bin/ansbile ]] || yum install -y ansible
-[[ -x /bin/tmux ]] || yum install -y tmux
-[[ -x /bin/wget ]] || yum install -y wget
-[[ -x /bin/git ]] || yum install -y git
+# yum clean all
+# yum makecache
+case ${OS} in
+    centos) PKG="yum" 
+    ${PKG} clean all
+    ${PKG} makecache
+    ${PGK} install -y epel-release libselinux-python
+    ;;
+    ubuntu) PKG="apt"
+    # echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main">>/etc/apt/sources.list
+    # apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367
+    ${PKG} install -y software-properties-common
+    apt-add-repository ppa:ansible/ansible
+    ${PKG} update
+    ;;
+esac
+[[ -x /usr/bin/python ]] || ${PKG} install -y python
+[[ -x /usr/bin/ansbile ]] || ${PKG} install -y ansible
+[[ -x /usr/bin/tmux ]] || ${PKG} install -y tmux
+[[ -x /usr/bin/wget ]] || ${PKG} install -y wget
+[[ -x /usr/bin/git ]] || ${PKG} install -y git
 
 # create the depot
 printf "generating depot structure..."
