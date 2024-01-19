@@ -1,0 +1,12 @@
+ Readme
+
+bannerm = Hace un banner para ssh
+hardnet = modifica ipv4 y tambien ipv6
+nameser = cambia name server y hace copia
+netevils = 
+rootcheck = checa varios archivos .bash ...
+sntp = instala chrony
+sshmod = modifica ssh y hace copia
+ufwinst = instala ufw y crea regla para puerto ssh
+Bannerm2 = modifica el banner por dark
+instf2b = instala ubuntu f2ban

@@ -1,0 +1,19 @@
+#!/bin/bash
+
+
+# Agregar un renglón de separación
+echo ""
+ifconfig | grep inet  | grep -v 127.0.0.1
+echo ""
+
+tempfile=$(mktemp)
+
+ip -4 addr show | awk '/inet/ && !/127.0.0.1/ {split($2, a, "/"); print $NF, a[1]}' > "$tempfile"
+
+
+batcat -l rb "$tempfile"
+
+# Opcional: Eliminar el archivo temporal después de usarlo
+rm "$tempfile"
+
+
