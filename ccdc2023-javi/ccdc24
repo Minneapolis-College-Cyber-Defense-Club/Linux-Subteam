@@ -69,21 +69,14 @@ done
 
 
 
-function mktem() {
-    new_dir=$(mktemp -d)
-    echo "Directorio creado en: $new_dir"
-    cd "$new_dir" || return
-    echo "Cambiado al directorio: $PWD"
-}
+#git clone https://github.com/4rji/4rji.git
+git clone https://github.com/Minneapolis-College-Cyber-Defense-Club/Linux-Subteam.git
+
+cd Linux-Subteam/ccdc2023-javi/
 
 
 
-
-# Aquí puedes llamar a la función mktem
-mktem
-
-git clone https://github.com/4rji/4rji.git
-cd 4rji/
+cp ~/.bashrc ~/.bashrc_backup
 
 ./alias.sh
 
@@ -91,83 +84,7 @@ sudo cp -f binarios/* /usr/bin/
 
 echo "binarios actualizados"
 cd
-echo ""
-echo "Si hay: Error opening terminal: xterm-kitty, ejecutar:"
-echo "export TERM=xterm"
 
-
-
-
-
-#para instalar functions en las bash
-echo ""
-echo ""
-
-# Pregunta al usuario
-read -p "¿Quieres instalar las FUNCTION en la bash? (s/N): " respuesta
-
-# Define un valor predeterminado si el usuario presiona Enter
-respuesta=${respuesta:-N}
-
-# Convierte la respuesta a minúsculas para facilitar la comparación
-respuesta=$(echo $respuesta | tr '[:upper:]' '[:lower:]')
-
-# Verifica la respuesta
-if [ "$respuesta" == "s" ]; then
-    echo "Ejecutando bashfun..."
-    bashfun
-    # Aquí colocas el código para ejecutar bashfun
-else
-    echo ""
-fi
-
-echo ""
-
-
-# Pregunta al usuario
-read -p "¿Quieres instalar todos ALIAS (s/N): " respuesta
-
-# Define un valor predeterminado si el usuario presiona Enter
-respuesta=${respuesta:-N}
-
-# Convierte la respuesta a minúsculas para facilitar la comparación
-respuesta=$(echo $respuesta | tr '[:upper:]' '[:lower:]')
-
-# Verifica la respuesta
-if [ "$respuesta" == "s" ]; then
-    echo "instalando todos los alias... herralias"
-    herralias
-    # Aquí colocas el código para ejecutar bashfun
-else
-    echo ""
-fi
-
-
-echo ""
-
-echo " ########### ALERTA.  #################"
-echo ""
-echo "Tarda mucho en instalarse"
-
-echo ""
-
-# Pregunta al usuario
-read -p "¿Quieres instalar todos los paquetes de 2-arji (s/N): " respuesta
-
-# Define un valor predeterminado si el usuario presiona Enter
-respuesta=${respuesta:-N}
-
-# Convierte la respuesta a minúsculas para facilitar la comparación
-respuesta=$(echo $respuesta | tr '[:upper:]' '[:lower:]')
-
-# Verifica la respuesta
-if [ "$respuesta" == "s" ]; then
-    echo "instalando todos los paquetes... 2-4rji"
-    2-4rji
-    # Aquí colocas el código para ejecutar bashfun
-else
-    echo ""
-fi
 
 
 
