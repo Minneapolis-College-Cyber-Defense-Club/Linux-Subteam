@@ -1,52 +1,99 @@
-#!/bin/zsh
+#!/bin/bash
 
-# Hacer una copia de seguridad del archivo sshd_config
-sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
+echo ""
 
-# Definir las líneas a buscar e insertar en el archivo
-lines_to_insert=(
-    "PermitRootLogin no"
-    "PermitEmptyPasswords no"
-    "KerberosAuthentication no"
-    "GSSAPIAuthentication no"
-    "X11Forwarding no"
-    "MaxAuthTries 3"
-    "LoginGraceTime 20"
-    "PermitUserEnvironment no"
-    "AllowAgentForwarding no"
-    "AllowTcpForwarding no"
-    "PermitTunnel no"
-    "MaxSessions 2"
-    "Compression no"
-    "TCPKeepAlive no"
-    "UseDNS no"
-    "LogLevel VERBOSE"
-    "MaxAuthTries 2"
-    "MaxSessions 1"
-    "PubkeyAuthentication yes"
-    "Banner /etc/mctcbanner"
-)
+# Ask if the user wants to perform SSH hardening in sshd_config
+read -p "Do you want to perform SSH hardening in sshd_config? (y/n): " response
 
-# Reemplazar o agregar las líneas especificadas en el archivo sshd_config
-for line in "${lines_to_insert[@]}"; do
-    if ! sudo grep -q "^$line" /etc/ssh/sshd_config; then
-        echo "$line" | sudo tee -a /etc/ssh/sshd_config
-    else
-        sudo sed -i "s/^$line.*/$line/" /etc/ssh/sshd_config
-    fi
-done
+# Verify the response
+if [[ $response == "y" ]]; then
 
-# Preguntar si se desea reiniciar el servicio sshd
-read -p "¿Desea reiniciar el servicio SSH? (s/n): " response
+    # Backup the sshd_config file
+    sudo cp /etc/ssh/sshd_config /etc/ssh/sshd_config.backup
 
-# Verificar la respuesta
-if [[ $response == "s" ]]; then
-    # Reiniciar el servicio sshd
-    sudo service ssh restart
-else
-    echo "Operación cancelada."
+    # Define the lines to search for and insert into the file
+    lines_to_insert=(
+        "PermitRootLogin no"
+        "PermitEmptyPasswords no"
+        "KerberosAuthentication no"
+        "GSSAPIAuthentication no"
+        "X11Forwarding no"
+        "MaxAuthTries 3"
+        "LoginGraceTime 20"
+        "PermitUserEnvironment no"
+        "AllowAgentForwarding no"
+        "AllowTcpForwarding no"
+        "PermitTunnel no"
+        "MaxSessions 2"
+        "Compression no"
+        "TCPKeepAlive no"
+        "UseDNS no"
+        "LogLevel VERBOSE"
+        "PubkeyAuthentication yes"
+        "Banner /etc/mctcbanner"
+    )
+
+    # Replace or add the specified lines in the sshd_config file
+    for line in "${lines_to_insert[@]}"; do
+        if ! sudo grep -q "^$line" /etc/ssh/sshd_config; then
+            echo "$line" | sudo tee -a /etc/ssh/sshd_config
+        else
+            sudo sed -i "s/^$line.*/$line/" /etc/ssh/sshd_config
+        fi
+    done
+
+    
+
+    #echo "Current sshd configuration:"
+    #sudo sshd -T
+    echo ""
+        echo ""
+            echo ""
+
+    echo ""
+    echo "Check changes in:"
+    echo "cat /etc/ssh/sshd_config"
+    echo ""
+    echo "Backup in:"
+    echo "cat /etc/ssh/sshd_config.backup"
+    echo ""
+    echo ""
+    echo ""
+    echo " RESTART THE SSH SERVICE TO APPLY CHANGES"
 fi
 
-# Mostrar la configuración actual de sshd
-echo "sudo sshd -T"
-sudo sshd -T
+    echo ""
+    echo ""
+    echo ""
+    echo "**************** END ****************"
+    echo ""
+        echo ""
+
+
+
+# Ask if the user wants to check the current SSH configuration
+read -p "Press Enter to verify the current SSH configuration or 'c' to cancel: " check_config
+
+# Check if the user pressed Enter or entered 'c'
+if [[ $check_config == "" ]]; then
+    echo "Current sshd configuration:"
+    sudo sshd -T
+elif [[ $check_config == "c" ]]; then
+    echo "Operation cancelled."
+else
+    echo "Invalid input. Operation cancelled."
+fi
+
+echo ""
+echo "**************** END ****************"
+
+echo ""
+
+echo "note: if you get error: /run/sshd missing check notes script"
+
+
+#in case missing /run/sshd apply:
+#sudo mkdir /run/sshd
+#sudo chmod 755 /run/sshd
+#sudo systemctl restart ssh
+#sudo sshd -T
