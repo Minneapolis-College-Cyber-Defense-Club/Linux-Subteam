@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 conf_file="$HOME/.tmux.conf"
 
