@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 # Crear un archivo temporal
 tempfile=$(mktemp)
@@ -8,7 +8,7 @@ ssa1 > "$tempfile"
 
 # Puedes realizar otras operaciones con el archivo si es necesario
 # Por ejemplo, mostrar su contenido con cat
-batcat -l rb "$tempfile"
+cat  "$tempfile"
 
 
 ## Verifica el estado del servicio SSH
