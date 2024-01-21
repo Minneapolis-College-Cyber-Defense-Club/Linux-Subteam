@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/bash
 
 # Crear el archivo /etc/mctcbanner
 sudo touch /etc/mctcbanner
@@ -24,3 +24,7 @@ EOT
 # Crear enlaces simbólicos
 sudo ln -s /etc/mctcbanner /etc/issue
 sudo ln -s /etc/mctcbanner /etc/motd
+
+echo ""
+echo "to modify the banner go to:"
+echo "sudo nano /etc/mctcbanner"

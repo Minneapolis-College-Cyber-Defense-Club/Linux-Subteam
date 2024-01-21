@@ -40,8 +40,8 @@ unlock_dns() {
 echo "Select an option:"
 echo "1. Change DNS to Google (8.8.8.8)"
 echo "2. Change DNS to a custom IP address"
-echo "3. Lock DNS"
-echo "4. Unlock DNS"
+echo "3. Lock chattr DNS"
+echo "4. Unlock chattr DNS"
 read -p "Option: " option
 
 # Execute the selected option
