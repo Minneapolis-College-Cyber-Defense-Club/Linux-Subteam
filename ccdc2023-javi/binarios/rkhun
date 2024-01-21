@@ -69,58 +69,73 @@ done
 
 
 
-
-
-
-
-echo "modificar los archivos"
+echo "modify the files"
 echo "sudo nano /etc/rkhunter.conf"
 echo "sudo nano /etc/default/rkhunter"
-read -p "Quieres modificar los archivos? s/enter: " modificar
+echo ""
+read -p "Do you want to modify the files automatic? y/[enter]: " modify
 
-
-
-if [[ $modificar == "s" ]]; then
+if [[ $modify == "y" ]]; then
     sudo rkhunconf
     sudo rkhuncron
-    echo "Archivos modificados con scripts"
+    echo "Files modified with scripts"
     sleep 1
 fi
 
-# Pregunta al usuario si quiere actualizar la base de datos
-read -p "Quieres actualizar la base de datos? s/enter: " actualizar
+# Ask the user if they want to update the database
+read -p "Do you want to update the database? y/[enter]: " update
 
-if [[ $actualizar == "s" ]]; then
+if [[ $update == "y" ]]; then
     sudo rkhunter --update
 fi
 
-
 sleep 1
-#listado de binarios abajo se ejecuta
-#sudo rkhunter --propupd
+# list of binaries below is executed
+# sudo rkhunter --propupd
 
-# Preguntar al usuario si quiere ejecutar el escaneo
-echo "¿Quieres ejecutar el escaneo ahora? (s/n): "
-read respuesta
+# Ask the user if they want to run the scan
+echo "Do you want to execute the scan now? (y/[enter]): "
+read response
 
-if [[ $respuesta = "s" ]]; then
-    # Si el usuario responde 's', ejecutar rkhunter
-    echo "Ejecutando rkhunter..."
+if [[ $response = "y" ]]; then
+    # If the user responds 's', execute rkhunter
+    echo "Running rkhunter..."
     sudo rkhunter --propupd
     sudo rkhunter --check -sk
 else
-    # Si el usuario presiona enter o cualquier otra tecla, mostrar cómo ejecutarlo más tarde
-    echo "Para escanear ejecute: sudo rkhunter --check -sk"
+    # If the user presses enter or any other key, show how to execute it later
+    echo ""
+fi
+
+
+# Ask the user if they want to run chkrootkit
+read -p "Do you want to execute chkrootkit? (y/[enter]): " run_chkrootkit
+
+if [[ $run_chkrootkit == "y" ]]; then
+    echo "Running chkrootkit..."
+    sudo chkrootkit
+else
+    echo "chkrootkit execution skipped."
 fi
 
 
 echo ""
-echo "comandos utiles"
+echo ""
+echo ""
+echo "**************** END ****************"
+echo ""
+echo ""
+echo ""
+echo ""
+
+
+echo "useful commands"
+echo ""
+echo "version"
 echo "sudo rkhunter --versioncheck"
 echo ""
-echo "Para correr el scaner de nuevo"
+echo "To run the scanner again"
 echo "sudo rkhunter --check -sk"
 echo ""
-echo "usa chkrootkit asi:"
-echo ""
-echo "chkrootkit"
+echo "To run chkrootkit scanner"
+echo "sudo chkrootkit"

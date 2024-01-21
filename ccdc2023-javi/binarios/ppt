@@ -66,57 +66,54 @@ done
 
 
 
-
-
-
-
-
-
-
-
-
-# Función para preguntar y ejecutar lsof
-preguntar_y_ejecutar_lsof() {
-    read -p "¿Ejecutar lsof? [Enter/c]: " respuesta
-    if [[ $respuesta != "c" ]]; then
+# Function to ask and execute lsof
+ask_and_execute_lsof() {
+    read -p "Execute lsof? [Enter/c]: " response
+    if [[ $response != "c" ]]; then
         sudo lsof -i -P -n
     fi
 }
 
-# Función para preguntar y ejecutar netstat
-preguntar_y_ejecutar_netstat() {
+# Function to ask and execute netstat
+ask_and_execute_netstat() {
     echo ""
     echo ""
-    read -p "¿Ejecutar netstat? [Enter/c]: " respuesta
-    if [[ $respuesta != "c" ]]; then
+    read -p "Execute netstat? [Enter/c]: " response
+    if [[ $response != "c" ]]; then
         netstat -tulpn
     fi
 }
 
-
-# Función para preguntar y ejecutar nmap en localhost
-preguntar_y_ejecutar_nmap() {
+# Function to ask and execute nmap on localhost
+ask_and_execute_nmap() {
     echo ""
     echo ""
-    read -p "¿Ejecutar nmap localhost? [Enter/c]: " respuesta
-    if [[ $respuesta != "c" ]]; then
+    read -p "Execute nmap localhost? [Enter/c]: " response
+    if [[ $response != "c" ]]; then
         sudo nmap -T4 -p- --min-rate 1000 localhost
     fi
 }
 
-
-# Función para preguntar y ejecutar ps
-preguntar_y_ejecutar_ps() {
+# Function to ask and execute ps
+ask_and_execute_ps() {
     echo ""
     echo ""
-    read -p "¿Ejecutar procesos? [Enter/c]: " respuesta
-    if [[ $respuesta != "c" ]]; then
+    read -p "Execute processes? [Enter/c]: " response
+    if [[ $response != "c" ]]; then
         ps -eo user,comm,pid
     fi
 }
 
-# Llamadas a las funciones
-preguntar_y_ejecutar_lsof
-preguntar_y_ejecutar_netstat
-preguntar_y_ejecutar_nmap
-preguntar_y_ejecutar_ps
+# Calls to the functions
+ask_and_execute_lsof
+ask_and_execute_netstat
+ask_and_execute_nmap
+ask_and_execute_ps
+
+
+
+
+
+
+
+
