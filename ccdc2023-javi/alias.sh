@@ -13,18 +13,6 @@ echo "Se ha realizado el respaldo y se han eliminado las líneas con 'alias' de 
 
 echo ""
 
-#custom alias
-echo 'alias ll="lsd -lh --group-dirs=first"' >> ~/.bashrc
-echo 'alias la="lsd -a --group-dirs=first"' >> ~/.bashrc
-echo 'alias l="lsd --group-dirs=first"' >> ~/.bashrc
-echo 'alias lla="lsd -lha --group-dirs=first"' >> ~/.bashrc
-echo 'alias ls="lsd --group-dirs=first"' >> ~/.bashrc
-echo 'alias cat="/bin/batcat --paging=never"' >> ~/.bashrc
-echo 'alias catt="/usr/bin/cat"' >> ~/.bashrc
-echo 'alias catnl="batcat"' >> ~/.bashrc
-echo "alias catr='bat -l rb --paging=never '" >> ~/.bashrc
-
-
 
 #ufw alias
 echo "alias ufws='sudo ufw status'"  >> ~/.bashrc
