@@ -7,4 +7,4 @@ sudo python3 /var/artillery/restart_server.py
 #sudo nohup /var/artillery/artillery.py &
 sudo python3 /var/artillery/artillery.py
 
-#echo "Artillery has been started in the background."
+echo "Artillery has been started in the background."
