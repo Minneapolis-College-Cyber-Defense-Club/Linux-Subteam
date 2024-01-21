@@ -13,7 +13,13 @@ while true; do
     echo ""
     echo "4. Change a user's shell to /usr/sbin/nologin"
     echo ""
-    echo "5. Exit and display commands"
+    echo "5. System accounts (less than uid 1000)"
+
+    echo ""
+    echo "6. System accounts (more than uid 1000)"
+
+    echo ""
+    echo "7. Exit and display commands"
                 echo ""
 
 
@@ -77,7 +83,7 @@ while true; do
             echo ""
             echo "Enter the username to change to nologin:"
             read username
-	    echo ""
+	        echo ""
             sudo usermod -s /usr/sbin/nologin $username
             echo ""
             
@@ -88,6 +94,32 @@ while true; do
             echo ""
             ;;
         5)
+            echo ""
+
+
+            echo ""
+            awk -F: '$3 < 1000 {print $1, $3}' /etc/passwd
+
+            echo ""
+            echo "***********************************************"
+            echo ""
+            echo ""
+            echo ""
+            ;;
+        6)
+            echo ""
+
+
+            echo ""
+            awk -F: '($3 >= 1000) {print $1}' /etc/passwd
+
+            echo ""
+            echo "***********************************************"
+            echo ""
+            echo ""
+            echo ""
+            ;;
+        7)
             echo ""
             echo "Exiting..."
             echo ""

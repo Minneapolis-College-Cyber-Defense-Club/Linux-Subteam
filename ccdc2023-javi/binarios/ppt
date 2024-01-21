@@ -80,17 +80,7 @@ ask_and_execute_netstat() {
     echo ""
     read -p "Execute netstat? [Enter/c]: " response
     if [[ $response != "c" ]]; then
-        netstat -tulpn
-    fi
-}
-
-# Function to ask and execute nmap on localhost
-ask_and_execute_nmap() {
-    echo ""
-    echo ""
-    read -p "Execute nmap localhost? [Enter/c]: " response
-    if [[ $response != "c" ]]; then
-        sudo nmap -T4 -p- --min-rate 1000 localhost
+        sudo netstat -tulpn
     fi
 }
 
@@ -100,16 +90,33 @@ ask_and_execute_ps() {
     echo ""
     read -p "Execute processes? [Enter/c]: " response
     if [[ $response != "c" ]]; then
-        ps -eo user,comm,pid
+        sudo ps -eo user,comm,pid | less
     fi
 }
+
+
+
+# Function to ask and execute nmap on localhost
+ask_and_execute_nmap() {
+    echo ""
+    echo ""
+    read -p "Execute nmap localhost -T4 -vvv? [Enter/c]: " response
+    if [[ $response != "c" ]]; then
+        sudo nmap -T3 -p- localhost -vv
+    fi
+}
+
+
+
+
+
 
 # Calls to the functions
 ask_and_execute_lsof
 ask_and_execute_netstat
-ask_and_execute_nmap
-ask_and_execute_ps
 
+ask_and_execute_ps
+ask_and_execute_nmap
 
 
 
