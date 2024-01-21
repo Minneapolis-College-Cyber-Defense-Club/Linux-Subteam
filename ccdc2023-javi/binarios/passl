@@ -1,7 +1,6 @@
 #!/bin/bash
 
 while true; do
-    echo ""
     
     echo "Choose a command to execute:"
     echo ""
@@ -17,9 +16,11 @@ while true; do
 
     echo ""
     echo "6. System accounts (more than uid 1000)"
+    echo ""
+    echo "7. See getcap "
 
     echo ""
-    echo "7. Exit and display commands"
+    echo "8. Exit and display commands"
                 echo ""
 
 
@@ -39,10 +40,9 @@ while true; do
             {
                 if ($7 != "/usr/sbin/nologin")
                     print $1 " : m" $7 ""
-            }' /etc/passwd
+            }' /etc/passwd | less
             echo ""
             echo "***********************************************"
-            echo ""
             echo ""
             echo ""
             ;;
@@ -52,22 +52,21 @@ while true; do
             echo "grep -v '/usr/sbin/nologin' /etc/passwd"
             echo "***********************************************"
             echo ""
-            grep -v '/usr/sbin/nologin' /etc/passwd
+
+            grep -v 'nologin' /etc/passwd | less
+
             echo ""
             echo ""
             echo "***********************************************"
             echo ""
             echo ""
             
-            echo ""
-            echo ""
+  
             ;;
         3)
             echo ""
-            echo ""
-            echo ""
              echo "***********************************************"
-            echo "grep -v '/usr/sbin/nologin' /etc/passwd"
+            echo "grep -v '/usr/sbin/nologin' /etc/passwd" 
             echo "***********************************************"
             echo "" 
             cat /etc/passwd | grep bash --color
@@ -75,22 +74,18 @@ while true; do
             echo ""
             echo "***********************************************"
             echo ""
-            echo ""
-            echo ""
-            echo ""
+
             ;;
         4)
             echo ""
             echo "Enter the username to change to nologin:"
             read username
 	        echo ""
-            sudo usermod -s /usr/sbin/nologin $username
+            sudo usermod -s /usr/sbin/nologin $username 
             echo ""
             
             echo ""
             echo "***********************************************"
-            echo ""
-            echo ""
             echo ""
             ;;
         5)
@@ -98,12 +93,10 @@ while true; do
 
 
             echo ""
-            awk -F: '$3 < 1000 {print $1, $3}' /etc/passwd
+            awk -F: '$3 < 1000 {print $1, $3}' /etc/passwd | less
 
             echo ""
             echo "***********************************************"
-            echo ""
-            echo ""
             echo ""
             ;;
         6)
@@ -111,15 +104,26 @@ while true; do
 
 
             echo ""
-            awk -F: '($3 >= 1000) {print $1}' /etc/passwd
+            awk -F: '($3 >= 1000) {print $1}' /etc/passwd | less
 
             echo ""
             echo "***********************************************"
             echo ""
             echo ""
-            echo ""
             ;;
         7)
+            echo ""
+            echo ""
+            getcap -r / 2>/dev/null
+
+            echo ""
+            echo "Look for:  ** cap_setuid=ep **"
+            echo "***********************************************"
+            echo ""
+            ;;
+
+
+        8)
             echo ""
             echo "Exiting..."
             echo ""
